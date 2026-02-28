@@ -1,7 +1,7 @@
 import type { ChangeEvent } from 'react';
+import { LocationSearch } from './LocationSearch';
 
 export type BirthData = {
-  name: string;
   date: string;
   time: string;
   latitude: string;
@@ -29,18 +29,6 @@ export const BirthDataForm = ({ data, onChange, label, errors = {} }: BirthDataF
     <div className="space-y-4 p-6 bg-[#0f0f14] border border-[#2a2a3a] rounded-xl">
       {label && <h3 className="text-lg font-semibold text-[#8b5cf6] mb-4">{label}</h3>}
       
-      <div>
-        <label className={labelClass}>Name</label>
-        <input
-          type="text"
-          value={data.name}
-          onChange={handleChange('name')}
-          placeholder="Enter full name"
-          className={`${inputClass} ${errors.name ? errorClass : ''}`}
-        />
-        {errors.name && <p className={errorTextClass}>{errors.name}</p>}
-      </div>
-
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <label className={labelClass}>Date of Birth</label>
@@ -65,6 +53,19 @@ export const BirthDataForm = ({ data, onChange, label, errors = {} }: BirthDataF
         </div>
       </div>
 
+      <div>
+        <label className={labelClass}>Birth Location</label>
+        <LocationSearch
+          onSelect={(lat, lon, name) => {
+            onChange({ 
+              ...data, 
+              latitude: lat.toString(), 
+              longitude: lon.toString() 
+            });
+          }}
+        />
+      </div>
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <label className={labelClass}>Latitude</label>
@@ -74,6 +75,7 @@ export const BirthDataForm = ({ data, onChange, label, errors = {} }: BirthDataF
             onChange={handleChange('latitude')}
             placeholder="e.g., 40.7128"
             className={`${inputClass} ${errors.latitude ? errorClass : ''}`}
+            readOnly
           />
           {errors.latitude && <p className={errorTextClass}>{errors.latitude}</p>}
         </div>
@@ -86,6 +88,7 @@ export const BirthDataForm = ({ data, onChange, label, errors = {} }: BirthDataF
             onChange={handleChange('longitude')}
             placeholder="e.g., -74.0060"
             className={`${inputClass} ${errors.longitude ? errorClass : ''}`}
+            readOnly
           />
           {errors.longitude && <p className={errorTextClass}>{errors.longitude}</p>}
         </div>

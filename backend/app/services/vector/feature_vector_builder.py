@@ -96,23 +96,29 @@ class FeatureVectorBuilder:
     @classmethod
     def calculate_aspect_density(cls, aspects: List[Dict], aspect_types: List[str]) -> float:
         """
-        Calculate density of specific aspect types
+        Calculate density of specific aspect types with orb tolerance
         
         Args:
             aspects: List of aspect dictionaries
             aspect_types: List of aspect type names to count
             
         Returns:
-            Normalized density (0-1)
+            Normalized density (0-1) with strength weighting
         """
         if not aspects:
             return 0.0
         
-        count = sum(1 for a in aspects if a.get('aspect') in aspect_types)
+        # Weight by strength (tighter orb = stronger)
+        weighted_count = sum(
+            aspect.get('strength', 1.0) 
+            for a in aspects 
+            if a.get('aspect') in aspect_types
+            for aspect in [a]  # Unpack for cleaner syntax
+        )
         
-        # Normalize: 0 aspects = 0.0, 5+ aspects = 1.0
-        max_expected = 5
-        density = min(1.0, count / max_expected)
+        # Normalize: 0 aspects = 0.0, 5+ weighted aspects = 1.0
+        max_expected = 5.0
+        density = min(1.0, weighted_count / max_expected)
         
         return round(density, 3)
     
@@ -151,13 +157,19 @@ class FeatureVectorBuilder:
         return round(max_strength, 3)
     
     @classmethod
-    def calculate_venus_mars_harmony(cls, venus_sign: str, mars_sign: str) -> float:
+    def calculate_venus_mars_harmony(cls, venus_sign: str, mars_sign: str, 
+                                    venus_mars_aspect: str = None) -> float:
         """
         Calculate Venus-Mars harmony score
         
-        Same element = 1.0
-        Compatible elements (Fire-Air, Earth-Water) = 0.7
-        Incompatible = 0.3
+        Factors:
+        - Element compatibility (60%)
+        - Aspect between Venus-Mars (40%)
+        
+        Args:
+            venus_sign: Venus zodiac sign
+            mars_sign: Mars zodiac sign
+            venus_mars_aspect: Aspect type between Venus-Mars (optional)
         """
         venus_element = cls.ELEMENT_MAP.get(venus_sign)
         mars_element = cls.ELEMENT_MAP.get(mars_sign)
@@ -165,19 +177,32 @@ class FeatureVectorBuilder:
         if not venus_element or not mars_element:
             return 0.5
         
+        # Element compatibility (60%)
         if venus_element == mars_element:
-            return 1.0
-        
-        # Compatible pairs
-        compatible = [
+            element_score = 1.0
+        elif (venus_element, mars_element) in [
             (Element.FIRE, Element.AIR), (Element.AIR, Element.FIRE),
             (Element.EARTH, Element.WATER), (Element.WATER, Element.EARTH)
-        ]
+        ]:
+            element_score = 0.7
+        else:
+            element_score = 0.3
         
-        if (venus_element, mars_element) in compatible:
-            return 0.7
+        # Aspect bonus (40%)
+        aspect_score = 0.5  # Neutral default
+        if venus_mars_aspect:
+            aspect_bonus = {
+                'Conjunction': 0.9,
+                'Trine': 1.0,
+                'Sextile': 0.8,
+                'Square': 0.3,
+                'Opposition': 0.4
+            }
+            aspect_score = aspect_bonus.get(venus_mars_aspect, 0.5)
         
-        return 0.3
+        # Weighted combination
+        harmony = element_score * 0.6 + aspect_score * 0.4
+        return round(harmony, 3)
     
     @classmethod
     def calculate_sun_moon_balance(cls, sun_sign: str, moon_sign: str) -> float:
@@ -348,10 +373,18 @@ class FeatureVectorBuilder:
         # Feature 5: 7th house strength
         seventh_house = self.calculate_seventh_house_strength(planets)
         
-        # Feature 6: Venus-Mars harmony
+        # Feature 6: Venus-Mars harmony (with aspect detection)
+        venus_mars_aspect = None
+        for aspect in aspects_list:
+            if (aspect.get('planet_a') == 'Venus' and aspect.get('planet_b') == 'Mars') or \
+               (aspect.get('planet_a') == 'Mars' and aspect.get('planet_b') == 'Venus'):
+                venus_mars_aspect = aspect.get('aspect')
+                break
+        
         venus_mars = self.calculate_venus_mars_harmony(
             venus.get('sign', ''),
-            mars.get('sign', '')
+            mars.get('sign', ''),
+            venus_mars_aspect
         )
         
         # Feature 7: Sun-Moon balance

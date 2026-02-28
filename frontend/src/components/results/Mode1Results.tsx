@@ -22,6 +22,14 @@ interface LoveProfileProps {
     message: string;
     recommendation: string;
   }>;
+  narrative?: {
+    headline?: string;
+    personality_summary?: string;
+    love_style?: string;
+    emotional_pattern?: string;
+    relationship_advice?: string;
+    bug_explanation?: string;
+  };
   aspects?: Array<{
     planet_a: string;
     planet_b: string;
@@ -39,7 +47,7 @@ interface LoveProfileProps {
   };
 }
 
-export const Mode1Results = ({ loveProfile, personalityVector, diagnostics = [], aspects, aspectScores }: LoveProfileProps) => {
+export const Mode1Results = ({ loveProfile, personalityVector, diagnostics = [], narrative, aspects, aspectScores }: LoveProfileProps) => {
   const getScoreColor = (score: number) => {
     // Normalize to 0-1 range if it's a percentage
     const normalized = score > 1 ? score / 100 : score;
@@ -65,6 +73,38 @@ export const Mode1Results = ({ loveProfile, personalityVector, diagnostics = [],
 
   return (
     <div className="space-y-6">
+      {/* LLM Narrative Section */}
+      {narrative && (
+        <div className="bg-[#0f0f14] border border-[#2a2a3a] rounded-xl p-6">
+          {narrative.headline && (
+            <h2 className="text-2xl font-bold text-[#00d9ff] mb-4">{narrative.headline}</h2>
+          )}
+          {narrative.personality_summary && (
+            <p className="text-gray-300 mb-4">{narrative.personality_summary}</p>
+          )}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+            {narrative.love_style && (
+              <div className="bg-[#1a1a24] rounded-lg p-4">
+                <div className="text-xs text-[#8b5cf6] font-semibold mb-2">LOVE STYLE</div>
+                <p className="text-sm text-gray-300">{narrative.love_style}</p>
+              </div>
+            )}
+            {narrative.emotional_pattern && (
+              <div className="bg-[#1a1a24] rounded-lg p-4">
+                <div className="text-xs text-[#00d9ff] font-semibold mb-2">EMOTIONAL PATTERN</div>
+                <p className="text-sm text-gray-300">{narrative.emotional_pattern}</p>
+              </div>
+            )}
+          </div>
+          {narrative.relationship_advice && (
+            <div className="bg-[#1a1a24] border-l-2 border-[#8b5cf6] rounded-lg p-4 mt-4">
+              <div className="text-xs text-gray-400 font-semibold mb-2">ADVICE</div>
+              <p className="text-sm text-gray-300">{narrative.relationship_advice}</p>
+            </div>
+          )}
+        </div>
+      )}
+
       {/* Love Profile Metrics */}
       <div className="bg-[#0f0f14] border border-[#2a2a3a] rounded-xl p-6">
         <h3 className="text-lg font-semibold text-[#8b5cf6] mb-4">LOVE PROFILE</h3>

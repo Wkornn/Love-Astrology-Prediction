@@ -3,6 +3,9 @@ interface CelebrityMatch {
   occupation?: string;
   similarity_score: number;
   match_reason: string;
+  narrative?: {
+    funny_joke?: string;
+  };
 }
 
 interface Mode2ResultsProps {
@@ -54,6 +57,13 @@ export const Mode2Results = ({ matches, userVector, totalCelebrities }: Mode2Res
               <div className="bg-[#0f0f14] rounded px-3 py-2 border-l-2 border-[#00d9ff]">
                 <p className="text-sm text-gray-300">{match.match_reason}</p>
               </div>
+              
+              {/* Funny Joke */}
+              {match.narrative?.funny_joke && (
+                <div className="mt-3 bg-[#1a1a24] rounded-lg p-3 border-l-2 border-[#f59e0b]">
+                  <p className="text-sm text-gray-300 italic">😄 {match.narrative.funny_joke}</p>
+                </div>
+              )}
             </div>
           ))}
         </div>

@@ -180,7 +180,11 @@ class CompatibilityAggregator:
         """
         Interpret single natal chart (Mode 1: no comparison)
         
-        Returns personality profile without similarity comparison
+        Uses weighted engineering formula for balanced scoring:
+        - Element balance (30%)
+        - Venus-Mars harmony (25%)
+        - Moon stability (20%)
+        - Aspect quality (25%)
         
         Args:
             vector: Feature dictionary from single chart
@@ -194,34 +198,45 @@ class CompatibilityAggregator:
                 'stability_potential': 0-100
             }
         """
-        # Love readiness (Venus-Mars harmony + 7th house)
+        # Calculate element balance (0-1)
+        element_scores = [vector['fire_score'], vector['earth_score'], 
+                         vector['air_score'], vector['water_score']]
+        element_balance = 1.0 - (max(element_scores) - min(element_scores))  # Less spread = better balance
+        
+        # Love readiness: Weighted formula
         love_readiness = (
-            vector['venus_mars_harmony'] * 0.6 + 
-            vector['seventh_house_strength'] * 0.4
+            element_balance * 0.30 +
+            vector['venus_mars_harmony'] * 0.25 +
+            vector['seventh_house_strength'] * 0.25 +
+            vector['soft_aspect_density'] * 0.20
         ) * 100
         
-        # Emotional maturity (Moon stability + aspect quality)
+        # Emotional maturity: Weighted formula
         emotional_maturity = (
-            vector['moon_stability'] * 0.6 + 
-            vector['aspect_quality'] * 0.4
+            vector['moon_stability'] * 0.40 +
+            vector['aspect_quality'] * 0.30 +
+            vector['sun_moon_balance'] * 0.30
         ) * 100
         
-        # Relationship focus (7th house + soft aspects)
+        # Relationship focus: Weighted formula
         relationship_focus = (
-            vector['seventh_house_strength'] * 0.7 + 
-            vector['soft_aspect_density'] * 0.3
+            vector['seventh_house_strength'] * 0.50 +
+            vector['soft_aspect_density'] * 0.30 +
+            vector['venus_mars_harmony'] * 0.20
         ) * 100
         
-        # Passion level (Fire + Venus-Mars)
+        # Passion level: Weighted formula
         passion_level = (
-            vector['fire_score'] * 0.5 + 
-            vector['venus_mars_harmony'] * 0.5
+            vector['fire_score'] * 0.40 +
+            vector['venus_mars_harmony'] * 0.35 +
+            vector['mars_element'] * 0.25
         ) * 100
         
-        # Stability potential (Earth + Fixed)
+        # Stability potential: Weighted formula
         stability_potential = (
-            vector['earth_score'] * 0.5 + 
-            vector['fixed_score'] * 0.5
+            vector['earth_score'] * 0.35 +
+            vector['fixed_score'] * 0.35 +
+            vector['moon_stability'] * 0.30
         ) * 100
         
         return {
