@@ -1,0 +1,47 @@
+[
+  {
+    "name": "Taylor Swift",
+    "occupation": "Musician",
+    "birth_date": "1989-12-13",
+    "birth_time": "05:17",
+    "latitude": 40.5853,
+    "longitude": -75.6184,
+    "timezone": "America/New_York"
+  },
+  {
+    "name": "Leonardo DiCaprio",
+    "occupation": "Actor",
+    "birth_date": "1974-11-11",
+    "birth_time": "02:47",
+    "latitude": 34.0522,
+    "longitude": -118.2437,
+    "timezone": "America/Los_Angeles"
+  },
+  {
+    "name": "Beyoncé",
+    "occupation": "Musician",
+    "birth_date": "1981-09-04",
+    "birth_time": "10:00",
+    "latitude": 29.7604,
+    "longitude": -95.3698,
+    "timezone": "America/Chicago"
+  },
+  {
+    "name": "Elon Musk",
+    "occupation": "Entrepreneur",
+    "birth_date": "1971-06-28",
+    "birth_time": "07:30",
+    "latitude": -26.2041,
+    "longitude": 28.0473,
+    "timezone": "Africa/Johannesburg"
+  },
+  {
+    "name": "Ariana Grande",
+    "occupation": "Musician",
+    "birth_date": "1993-06-26",
+    "birth_time": "09:16",
+    "latitude": 26.1224,
+    "longitude": -80.1373,
+    "timezone": "America/New_York"
+  }
+]

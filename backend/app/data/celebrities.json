@@ -1,0 +1,47 @@
+[
+  {
+    "name": "Sample Celebrity A",
+    "birth_date": "1990-05-15",
+    "vector": {
+      "fire_score": 0.45,
+      "earth_score": 0.25,
+      "air_score": 0.15,
+      "water_score": 0.15,
+      "cardinal_score": 0.4,
+      "fixed_score": 0.3,
+      "mutable_score": 0.3,
+      "venus_mars_harmony": 0.8,
+      "sun_moon_balance": 0.7
+    }
+  },
+  {
+    "name": "Sample Celebrity B",
+    "birth_date": "1985-11-20",
+    "vector": {
+      "fire_score": 0.2,
+      "earth_score": 0.4,
+      "air_score": 0.25,
+      "water_score": 0.15,
+      "cardinal_score": 0.3,
+      "fixed_score": 0.5,
+      "mutable_score": 0.2,
+      "venus_mars_harmony": 0.6,
+      "sun_moon_balance": 0.8
+    }
+  },
+  {
+    "name": "Sample Celebrity C",
+    "birth_date": "1992-03-08",
+    "vector": {
+      "fire_score": 0.15,
+      "earth_score": 0.2,
+      "air_score": 0.4,
+      "water_score": 0.25,
+      "cardinal_score": 0.35,
+      "fixed_score": 0.25,
+      "mutable_score": 0.4,
+      "venus_mars_harmony": 0.7,
+      "sun_moon_balance": 0.6
+    }
+  }
+]
