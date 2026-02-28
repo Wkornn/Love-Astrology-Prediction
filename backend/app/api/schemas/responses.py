@@ -9,7 +9,7 @@ class Mode1Response(BaseModel):
     mode: str = "mode1"
     love_profile: Dict[str, float]
     personality_vector: Dict[str, float]
-    humor_bugs: Optional[List[Dict]] = None
+    diagnostics: Optional[List[Dict]] = None
     
 class CelebrityMatch(BaseModel):
     """Single celebrity match result"""
@@ -38,6 +38,7 @@ class Mode3Response(BaseModel):
     stability_index: float
     strengths: List[str]
     challenges: List[str]
+    diagnostics: Optional[List[Dict]] = None
 
 class ErrorResponse(BaseModel):
     """Error response"""

@@ -1,0 +1,116 @@
+interface LoveBug {
+  code: string;
+  severity: 'CRITICAL' | 'WARNING' | 'INFO';
+  message: string;
+  recommendation: string;
+}
+
+interface ResultDashboardProps {
+  compatibilityScore?: number;
+  emotionalSync?: number;
+  chemistryIndex?: number;
+  stabilityIndex?: number;
+  loveBugs: LoveBug[];
+  systemStatus: string;
+}
+
+export const ResultDashboard = ({
+  compatibilityScore,
+  emotionalSync,
+  chemistryIndex,
+  stabilityIndex,
+  loveBugs,
+  systemStatus,
+}: ResultDashboardProps) => {
+  const getSeverityColor = (severity: string) => {
+    switch (severity) {
+      case 'CRITICAL': return '#ef4444';
+      case 'WARNING': return '#f59e0b';
+      case 'INFO': return '#00d9ff';
+      default: return '#6b7280';
+    }
+  };
+
+  return (
+    <div className="space-y-6">
+      {/* Compatibility Score */}
+      {compatibilityScore !== undefined && (
+        <div className="bg-[#0f0f14] border border-[#2a2a3a] rounded-xl p-8 text-center">
+          <div className="text-sm text-gray-400 mb-2">COMPATIBILITY SCORE</div>
+          <div className="text-7xl font-bold text-[#8b5cf6] mb-2">
+            {compatibilityScore}%
+          </div>
+          <div className="text-sm text-gray-500">{systemStatus}</div>
+        </div>
+      )}
+
+      {/* Metrics Grid */}
+      {(emotionalSync !== undefined || chemistryIndex !== undefined || stabilityIndex !== undefined) && (
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {emotionalSync !== undefined && (
+            <div className="bg-[#0f0f14] border border-[#2a2a3a] rounded-xl p-6">
+              <div className="text-xs text-gray-400 mb-2">EMOTIONAL SYNC</div>
+              <div className="text-3xl font-bold text-[#00d9ff]">{emotionalSync}%</div>
+            </div>
+          )}
+          {chemistryIndex !== undefined && (
+            <div className="bg-[#0f0f14] border border-[#2a2a3a] rounded-xl p-6">
+              <div className="text-xs text-gray-400 mb-2">CHEMISTRY INDEX</div>
+              <div className="text-3xl font-bold text-[#8b5cf6]">{chemistryIndex}%</div>
+            </div>
+          )}
+          {stabilityIndex !== undefined && (
+            <div className="bg-[#0f0f14] border border-[#2a2a3a] rounded-xl p-6">
+              <div className="text-xs text-gray-400 mb-2">STABILITY INDEX</div>
+              <div className="text-3xl font-bold text-[#00d9ff]">{stabilityIndex}%</div>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Radar Chart Placeholder */}
+      <div className="bg-[#0f0f14] border border-[#2a2a3a] rounded-xl p-8">
+        <div className="text-sm text-gray-400 mb-4">COMPATIBILITY ANALYSIS</div>
+        <div className="h-64 flex items-center justify-center border-2 border-dashed border-[#2a2a3a] rounded-lg">
+          <div className="text-center text-gray-500">
+            <div className="text-4xl mb-2">📊</div>
+            <div>Radar Chart Placeholder</div>
+          </div>
+        </div>
+      </div>
+
+      {/* Diagnostic Panel */}
+      <div className="bg-[#0f0f14] border border-[#2a2a3a] rounded-xl p-6">
+        <div className="text-sm text-gray-400 mb-4">DIAGNOSTIC PANEL</div>
+        <div className="space-y-3">
+          {loveBugs.map((bug, index) => (
+            <div
+              key={index}
+              className="bg-[#1a1a24] border border-[#2a2a3a] rounded-lg p-4"
+            >
+              <div className="flex items-start gap-3">
+                <div
+                  className="w-2 h-2 rounded-full mt-2 flex-shrink-0"
+                  style={{ backgroundColor: getSeverityColor(bug.severity) }}
+                />
+                <div className="flex-1">
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="text-xs font-mono text-gray-400">{bug.code}</span>
+                    <span
+                      className="text-xs font-semibold"
+                      style={{ color: getSeverityColor(bug.severity) }}
+                    >
+                      {bug.severity}
+                    </span>
+                  </div>
+                  <div className="text-sm text-white mb-2">{bug.message}</div>
+                  <div className="text-xs text-gray-400">{bug.recommendation}</div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
