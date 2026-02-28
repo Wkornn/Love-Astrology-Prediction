@@ -110,18 +110,18 @@ Generate ONLY valid JSON in THAI:
             return self._fallback_mode2(celebrity_name, similarity)
         
         try:
-            prompt = f"""You are a Thai fortune teller. Generate ONE funny joke in Thai.
+            prompt = f"""You are a Thai fortune teller with a roasting sense of humor. Generate ONE funny roast joke in Thai.
 
 Celebrity: {celebrity_name}
 Match: {similarity}%
 
-Generate ONLY valid JSON with ONE funny sentence in THAI:
+Generate ONLY valid JSON with ONE roast sentence in THAI:
 {{
-  "funny_joke": "ประโยคตลกๆ 1 ประโยค เกี่ยวกับการแมตช์กับดาราคนนี้ ขำๆ แบบล้อเล่น"
+  "funny_joke": "ประโยค roast ตลกๆ 1 ประโยค แบบล้อเล่น เช่น 'แมตช์ {int(similarity)}% แต่เค้ารวยกว่า', 'ดาวบอกว่าเข้ากันได้ แต่บัญชีธนาคารบอกว่าไม่', 'เหมาะกันมาก แต่เค้าไม่รู้จักคุณ'"
 }}
 
-ตัวอย่าง: 'คุณกับ {celebrity_name} เหมือนกันถึง {int(similarity)}% - แต่เธอรวยกว่า'
-ตลกแต่ไม่เสียมารยาท สั้นๆ"""
+สไตล์: roast แซวแรงได้ เล่นเรื่องฐานะ เรื่องหน้าตา เหมือนเราที่เป็นพื้นบ้านชนชั้นล่างไปคู่กับคนดังระดับโลกที่ดีกว่าเราเป็นพันเท่า ดวงบอกคู่แต่ได้แค่เพ้อ
+ห้ามซ้ำกัน ให้แต่ละคนต่างกัน"""
 
             response = self.model.generate_content(prompt)
             text = response.text
@@ -215,8 +215,14 @@ Generate ONLY valid JSON in THAI:
     
     def _fallback_mode2(self, celebrity_name: str, similarity: float) -> Dict[str, str]:
         """Simple template fallback for Mode 2 in Thai"""
+        roasts = [
+            f"แมตช์ {int(similarity)}% กับ {celebrity_name} - แต่เค้าไม่รู้จักคุณ",
+            f"ดาวบอกว่าเข้ากันได้ {int(similarity)}% - แต่บัญชีธนาคารบอกว่าไม่",
+            f"เหมาะกันมาก แต่เค้ารวยกว่าคุณหลายล้านเท่า"
+        ]
+        import random
         return {
-            'funny_joke': f"คุณกับ {celebrity_name} เข้ากันได้ {int(similarity)}% - ดาวเคราะห์พูดว่าเข้ากันได้!"
+            'funny_joke': random.choice(roasts)
         }
     
     def _fallback_mode3(self, scores: Dict) -> Dict[str, str]:

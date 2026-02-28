@@ -93,7 +93,7 @@ const Mode3Page = () => {
           stabilityIndex={result.data.stability_index}
           strengths={result.data.strengths}
           challenges={result.data.challenges}
-          diagnostics={result.diagnostics.bugs}
+          narrative={result.data.narrative}
         />
       )}
     </div>

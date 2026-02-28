@@ -7,12 +7,14 @@ interface Mode3ResultsProps {
   stabilityIndex: number;
   strengths: string[];
   challenges: string[];
-  diagnostics?: Array<{
-    code: string;
-    severity: string;
-    message: string;
-    recommendation: string;
-  }>;
+  narrative?: {
+    relationship_summary?: string;
+    key_strengths?: string;
+    main_challenges?: string;
+    conflict_pattern?: string;
+    growth_advice?: string;
+    drama_explanation?: string;
+  };
 }
 
 export const Mode3Results = ({
@@ -24,7 +26,7 @@ export const Mode3Results = ({
   stabilityIndex,
   strengths,
   challenges,
-  diagnostics = [],
+  narrative,
 }: Mode3ResultsProps) => {
   const getScoreColor = (score: number) => {
     if (score >= 75) return '#00d9ff';
@@ -129,22 +131,46 @@ export const Mode3Results = ({
         </div>
       </div>
 
-      {/* Diagnostics */}
-      {diagnostics.length > 0 && (
+      {/* LLM Narrative */}
+      {narrative && (
         <div className="bg-[#0f0f14] border border-[#2a2a3a] rounded-xl p-6">
-          <h3 className="text-lg font-semibold text-[#8b5cf6] mb-4">DIAGNOSTIC INSIGHTS</h3>
-          <div className="space-y-3">
-            {diagnostics.map((diag, idx) => (
-              <div key={idx} className="bg-[#1a1a24] border border-[#2a2a3a] rounded-lg p-4">
-                <div className="flex items-start gap-3">
-                  <div className="text-sm font-mono text-gray-400">{diag.code}</div>
-                  <div className="flex-1">
-                    <div className="text-sm text-white mb-1">{diag.message}</div>
-                    <div className="text-xs text-gray-400">{diag.recommendation}</div>
-                  </div>
-                </div>
+          <h3 className="text-lg font-semibold text-[#8b5cf6] mb-4">💫 ดวงดาวบอกอะไร</h3>
+          <div className="space-y-4">
+            {narrative.relationship_summary && (
+              <div className="bg-[#1a1a24] rounded-lg p-4 border-l-2 border-[#8b5cf6]">
+                <div className="text-xs text-[#8b5cf6] mb-1">สรุปความสัมพันธ์</div>
+                <p className="text-sm text-gray-300">{narrative.relationship_summary}</p>
               </div>
-            ))}
+            )}
+            {narrative.key_strengths && (
+              <div className="bg-[#1a1a24] rounded-lg p-4 border-l-2 border-[#00d9ff]">
+                <div className="text-xs text-[#00d9ff] mb-1">จุดแข็ง</div>
+                <p className="text-sm text-gray-300">{narrative.key_strengths}</p>
+              </div>
+            )}
+            {narrative.main_challenges && (
+              <div className="bg-[#1a1a24] rounded-lg p-4 border-l-2 border-[#f59e0b]">
+                <div className="text-xs text-[#f59e0b] mb-1">จุดที่ต้องระวัง</div>
+                <p className="text-sm text-gray-300">{narrative.main_challenges}</p>
+              </div>
+            )}
+            {narrative.conflict_pattern && (
+              <div className="bg-[#1a1a24] rounded-lg p-4 border-l-2 border-[#ef4444]">
+                <div className="text-xs text-[#ef4444] mb-1">รูปแบบความขัดแย้ง</div>
+                <p className="text-sm text-gray-300">{narrative.conflict_pattern}</p>
+              </div>
+            )}
+            {narrative.growth_advice && (
+              <div className="bg-[#1a1a24] rounded-lg p-4 border-l-2 border-[#10b981]">
+                <div className="text-xs text-[#10b981] mb-1">คำแนะนำ</div>
+                <p className="text-sm text-gray-300">{narrative.growth_advice}</p>
+              </div>
+            )}
+            {narrative.drama_explanation && (
+              <div className="bg-[#1a1a24] rounded-lg p-4 border-l-2 border-[#f59e0b]">
+                <p className="text-sm text-gray-300 italic">🎭 {narrative.drama_explanation}</p>
+              </div>
+            )}
           </div>
         </div>
       )}
