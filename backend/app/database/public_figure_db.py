@@ -343,10 +343,14 @@ class PublicFigureDatabase:
         Generate mock celebrity data for demo mode (in-memory only)
         
         Returns:
-            List of mock figure dictionaries with feature vectors
+            List of mock figure dictionaries with 16-dimensional feature vectors
         """
         if self._mock_data is None:
             # Generate mock data once and cache it
+            # 16 features: venus_element, mars_element, moon_stability, hard_aspect_density, 
+            # soft_aspect_density, seventh_house_strength, venus_mars_harmony, sun_moon_balance,
+            # aspect_quality, fire_score, earth_score, air_score, water_score, 
+            # fixed_score, cardinal_score, mutable_score
             self._mock_data = [
                 {
                     'id': 1,
@@ -357,7 +361,7 @@ class PublicFigureDatabase:
                     'birth_latitude': 40.7128,
                     'birth_longitude': -74.0060,
                     'birth_timezone': 'America/New_York',
-                    'feature_vector': [0.75, 0.82, 0.68, 0.55, 0.45, 0.62, 0.71, 0.38, 0.65]
+                    'feature_vector': [0.75, 0.82, 0.68, 0.55, 0.45, 0.62, 0.71, 0.38, 0.65, 0.6, 0.2, 0.2, 0.0, 0.4, 0.3, 0.3]
                 },
                 {
                     'id': 2,
@@ -368,7 +372,7 @@ class PublicFigureDatabase:
                     'birth_latitude': 34.0522,
                     'birth_longitude': -118.2437,
                     'birth_timezone': 'America/Los_Angeles',
-                    'feature_vector': [0.68, 0.71, 0.79, 0.48, 0.62, 0.55, 0.68, 0.42, 0.58]
+                    'feature_vector': [0.68, 0.71, 0.79, 0.48, 0.62, 0.55, 0.68, 0.42, 0.58, 0.4, 0.4, 0.2, 0.0, 0.3, 0.4, 0.3]
                 },
                 {
                     'id': 3,
@@ -379,7 +383,7 @@ class PublicFigureDatabase:
                     'birth_latitude': 51.5074,
                     'birth_longitude': -0.1278,
                     'birth_timezone': 'Europe/London',
-                    'feature_vector': [0.82, 0.65, 0.73, 0.38, 0.58, 0.72, 0.65, 0.35, 0.68]
+                    'feature_vector': [0.82, 0.65, 0.73, 0.38, 0.58, 0.72, 0.65, 0.35, 0.68, 0.2, 0.2, 0.4, 0.2, 0.3, 0.3, 0.4]
                 },
                 {
                     'id': 4,
@@ -390,7 +394,7 @@ class PublicFigureDatabase:
                     'birth_latitude': 37.7749,
                     'birth_longitude': -122.4194,
                     'birth_timezone': 'America/Los_Angeles',
-                    'feature_vector': [0.71, 0.78, 0.65, 0.62, 0.52, 0.58, 0.69, 0.45, 0.62]
+                    'feature_vector': [0.71, 0.78, 0.65, 0.62, 0.52, 0.58, 0.69, 0.45, 0.62, 0.6, 0.2, 0.2, 0.0, 0.4, 0.2, 0.4]
                 },
                 {
                     'id': 5,
@@ -401,7 +405,7 @@ class PublicFigureDatabase:
                     'birth_latitude': 48.8566,
                     'birth_longitude': 2.3522,
                     'birth_timezone': 'Europe/Paris',
-                    'feature_vector': [0.79, 0.72, 0.81, 0.42, 0.55, 0.68, 0.75, 0.32, 0.71]
+                    'feature_vector': [0.79, 0.72, 0.81, 0.42, 0.55, 0.68, 0.75, 0.32, 0.71, 0.4, 0.0, 0.4, 0.2, 0.2, 0.4, 0.4]
                 },
                 {
                     'id': 6,
@@ -412,7 +416,7 @@ class PublicFigureDatabase:
                     'birth_latitude': 35.6762,
                     'birth_longitude': 139.6503,
                     'birth_timezone': 'Asia/Tokyo',
-                    'feature_vector': [0.73, 0.69, 0.76, 0.51, 0.59, 0.65, 0.72, 0.39, 0.66]
+                    'feature_vector': [0.73, 0.69, 0.76, 0.51, 0.59, 0.65, 0.72, 0.39, 0.66, 0.2, 0.4, 0.2, 0.2, 0.3, 0.3, 0.4]
                 },
                 {
                     'id': 7,
@@ -423,7 +427,7 @@ class PublicFigureDatabase:
                     'birth_latitude': 41.9028,
                     'birth_longitude': 12.4964,
                     'birth_timezone': 'Europe/Rome',
-                    'feature_vector': [0.76, 0.74, 0.70, 0.58, 0.48, 0.63, 0.67, 0.41, 0.64]
+                    'feature_vector': [0.76, 0.74, 0.70, 0.58, 0.48, 0.63, 0.67, 0.41, 0.64, 0.4, 0.2, 0.2, 0.2, 0.3, 0.3, 0.4]
                 },
             ]
         
