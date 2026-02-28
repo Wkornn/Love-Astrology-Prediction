@@ -22,16 +22,46 @@ interface LoveProfileProps {
     message: string;
     recommendation: string;
   }>;
+  aspects?: Array<{
+    planet_a: string;
+    planet_b: string;
+    aspect: string;
+    orb: number;
+    exact_angle: number;
+    strength: number;
+  }>;
+  aspectScores?: {
+    total_score: number;
+    harmonious_count: number;
+    challenging_count: number;
+    neutral_count: number;
+    average_strength: number;
+  };
 }
 
-export const Mode1Results = ({ loveProfile, personalityVector, diagnostics = [] }: LoveProfileProps) => {
+export const Mode1Results = ({ loveProfile, personalityVector, diagnostics = [], aspects, aspectScores }: LoveProfileProps) => {
   const getScoreColor = (score: number) => {
-    if (score >= 0.75) return '#00d9ff';
-    if (score >= 0.5) return '#8b5cf6';
+    // Normalize to 0-1 range if it's a percentage
+    const normalized = score > 1 ? score / 100 : score;
+    if (normalized >= 0.75) return '#00d9ff';
+    if (normalized >= 0.5) return '#8b5cf6';
     return '#f59e0b';
   };
 
-  const formatPercent = (val: number) => Math.round(val * 100);
+  const formatPercent = (val: number) => {
+    // Backend returns love_profile as percentages (50.0) and personality_vector as decimals (0.5)
+    // If value > 1, it's already a percentage
+    if (val > 1) {
+      return Math.round(val);
+    }
+    return Math.round(val * 100);
+  };
+
+  const getAspectColor = (aspect: string) => {
+    if (aspect === 'Trine' || aspect === 'Sextile') return '#00d9ff';
+    if (aspect === 'Square' || aspect === 'Opposition') return '#f59e0b';
+    return '#8b5cf6';
+  };
 
   return (
     <div className="space-y-6">
@@ -111,6 +141,71 @@ export const Mode1Results = ({ loveProfile, personalityVector, diagnostics = [] 
                   <div className="flex-1">
                     <div className="text-sm text-white mb-1">{diag.message}</div>
                     <div className="text-xs text-gray-400">{diag.recommendation}</div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Aspect Engine Data */}
+      {aspects && aspects.length > 0 && (
+        <div className="bg-[#0f0f14] border border-[#2a2a3a] rounded-xl p-6">
+          <h3 className="text-lg font-semibold text-[#8b5cf6] mb-4">ASPECT ENGINE DATA</h3>
+          
+          {/* Aspect Summary */}
+          {aspectScores && (
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6">
+              <div className="bg-[#1a1a24] rounded-lg p-3 text-center">
+                <div className="text-xs text-gray-400 mb-1">TOTAL</div>
+                <div className="text-xl font-bold text-white">{aspects.length}</div>
+              </div>
+              <div className="bg-[#1a1a24] rounded-lg p-3 text-center">
+                <div className="text-xs text-gray-400 mb-1">HARMONIOUS</div>
+                <div className="text-xl font-bold text-[#00d9ff]">{aspectScores.harmonious_count}</div>
+              </div>
+              <div className="bg-[#1a1a24] rounded-lg p-3 text-center">
+                <div className="text-xs text-gray-400 mb-1">CHALLENGING</div>
+                <div className="text-xl font-bold text-[#f59e0b]">{aspectScores.challenging_count}</div>
+              </div>
+              <div className="bg-[#1a1a24] rounded-lg p-3 text-center">
+                <div className="text-xs text-gray-400 mb-1">NEUTRAL</div>
+                <div className="text-xl font-bold text-[#8b5cf6]">{aspectScores.neutral_count}</div>
+              </div>
+              <div className="bg-[#1a1a24] rounded-lg p-3 text-center">
+                <div className="text-xs text-gray-400 mb-1">AVG STRENGTH</div>
+                <div className="text-xl font-bold text-white">{aspectScores.average_strength.toFixed(2)}</div>
+              </div>
+            </div>
+          )}
+
+          {/* Aspect List */}
+          <div className="space-y-2 max-h-96 overflow-y-auto">
+            {aspects.map((aspect, idx) => (
+              <div key={idx} className="bg-[#1a1a24] border border-[#2a2a3a] rounded-lg p-3 flex items-center justify-between">
+                <div className="flex items-center gap-3 flex-1">
+                  <div className="text-sm font-semibold text-white">
+                    {aspect.planet_a} <span className="text-gray-500">→</span> {aspect.planet_b}
+                  </div>
+                  <div 
+                    className="px-2 py-1 rounded text-xs font-semibold"
+                    style={{ 
+                      backgroundColor: getAspectColor(aspect.aspect) + '20',
+                      color: getAspectColor(aspect.aspect)
+                    }}
+                  >
+                    {aspect.aspect}
+                  </div>
+                </div>
+                <div className="flex items-center gap-4 text-xs">
+                  <div>
+                    <span className="text-gray-400">Orb:</span>
+                    <span className="text-white ml-1">{aspect.orb.toFixed(2)}°</span>
+                  </div>
+                  <div>
+                    <span className="text-gray-400">Strength:</span>
+                    <span className="text-[#00d9ff] ml-1">{(aspect.strength * 100).toFixed(0)}%</span>
                   </div>
                 </div>
               </div>

@@ -29,13 +29,16 @@ class BirthDataRequest(BaseModel):
 class Mode1Request(BaseModel):
     """Mode 1: Single-person love reading"""
     birth_data: BirthDataRequest
+    debug: Optional[bool] = Field(False, description="Include debug information")
 
 class Mode2Request(BaseModel):
     """Mode 2: Celebrity matching"""
     birth_data: BirthDataRequest
     top_n: Optional[int] = Field(5, ge=1, le=20, description="Number of top matches")
+    debug: Optional[bool] = Field(False, description="Include debug information")
 
 class Mode3Request(BaseModel):
     """Mode 3: Couple compatibility"""
     person1: BirthDataRequest
     person2: BirthDataRequest
+    debug: Optional[bool] = Field(False, description="Include debug information")

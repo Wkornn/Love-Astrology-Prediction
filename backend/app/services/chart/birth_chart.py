@@ -2,8 +2,12 @@
 
 from datetime import datetime
 from typing import Dict, Any
+import logging
 from ..ephemeris.planetary_calc import PlanetaryCalculator
 from .house_system import HouseCalculator
+from ...utils.timezone_converter import TimezoneConverter
+
+logger = logging.getLogger(__name__)
 
 class BirthChartCalculator:
     """
@@ -14,6 +18,7 @@ class BirthChartCalculator:
     def __init__(self, ephemeris_path: str = None):
         self.planetary_calc = PlanetaryCalculator(ephemeris_path)
         self.house_calc = HouseCalculator(ephemeris_path)
+        self.tz_converter = TimezoneConverter()
     
     def calculate_chart(self, date: str, time: str, latitude: float, 
                        longitude: float, timezone: str = 'UTC') -> Dict[str, Any]:
@@ -25,24 +30,10 @@ class BirthChartCalculator:
             time: Birth time in format 'HH:MM:SS' or 'HH:MM'
             latitude: Geographic latitude in degrees (-90 to 90)
             longitude: Geographic longitude in degrees (-180 to 180)
-            timezone: Timezone string (default: 'UTC')
+            timezone: IANA timezone string (default: 'UTC')
             
         Returns:
-            Dictionary containing:
-            {
-                'planets': {
-                    'Sun': {'sign': 'Leo', 'degree': 15.5, 'house': 10, 'longitude': 135.5},
-                    'Moon': {...},
-                    ...
-                },
-                'houses': {
-                    'cusps': [0.0, 30.5, 60.2, ...],
-                    'ascendant': 120.5,
-                    'ascendant_sign': 'Leo',
-                    'mc': 30.2,
-                    'mc_sign': 'Taurus'
-                }
-            }
+            Dictionary containing planets and houses data
             
         Raises:
             ValueError: If input data is invalid or calculation fails
@@ -50,17 +41,22 @@ class BirthChartCalculator:
         # Validate inputs
         self._validate_inputs(date, time, latitude, longitude)
         
-        # Parse datetime
-        dt = self._parse_datetime(date, time, timezone)
+        # Validate and sanitize timezone
+        safe_timezone = self.tz_converter.get_safe_timezone(timezone)
         
-        # Calculate planetary positions
+        # Convert to UTC for Swiss Ephemeris
+        utc_dt = self.tz_converter.convert_to_utc(date, time, safe_timezone)
+        
+        logger.info(f"Calculating chart for {date} {time} {safe_timezone} (UTC: {utc_dt})")
+        
+        # Calculate planetary positions (using UTC)
         planets_data = self.planetary_calc.calculate_all_planets(
-            dt, 
+            utc_dt, 
             planets=['Sun', 'Moon', 'Mercury', 'Venus', 'Mars']
         )
         
-        # Calculate houses
-        houses_data = self.house_calc.calculate_houses(dt, latitude, longitude)
+        # Calculate houses (using UTC)
+        houses_data = self.house_calc.calculate_houses(utc_dt, latitude, longitude)
         
         # Determine house placement for each planet
         for planet_name, planet_info in planets_data.items():
@@ -78,7 +74,8 @@ class BirthChartCalculator:
                 'time': time,
                 'latitude': latitude,
                 'longitude': longitude,
-                'timezone': timezone
+                'timezone': safe_timezone,
+                'utc_time': utc_dt.strftime('%Y-%m-%d %H:%M:%S')
             }
         }
     
@@ -97,27 +94,6 @@ class BirthChartCalculator:
         
         if not time or ':' not in time:
             raise ValueError(f"Invalid time format: {time}. Expected HH:MM or HH:MM:SS")
-    
-    @staticmethod
-    def _parse_datetime(date: str, time: str, timezone: str) -> datetime:
-        """
-        Parse date and time strings into datetime object
-        
-        Note: For simplicity, treating all times as UTC.
-        Production version should handle timezone conversion properly.
-        """
-        try:
-            # Handle both HH:MM and HH:MM:SS formats
-            if time.count(':') == 1:
-                time += ':00'
-            
-            dt_str = f"{date} {time}"
-            dt = datetime.strptime(dt_str, '%Y-%m-%d %H:%M:%S')
-            
-            return dt
-            
-        except Exception as e:
-            raise ValueError(f"Failed to parse datetime: {e}")
     
     def calculate_chart_json(self, date: str, time: str, latitude: float, 
                             longitude: float, timezone: str = 'UTC') -> dict:

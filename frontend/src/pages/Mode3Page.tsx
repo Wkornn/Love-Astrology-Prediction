@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { BirthDataForm, type BirthData } from '../components/forms/BirthDataForm';
 import { Mode3Results } from '../components/results/Mode3Results';
 import { validateBirthData } from '../utils/validation';
-import { mockMode3Result } from '../data/mockResults';
+import { submitCoupleMatch, type Mode3Response } from '../services/api';
 
 const Mode3Page = () => {
   const [person1, setPerson1] = useState<BirthData>({
@@ -21,15 +21,48 @@ const Mode3Page = () => {
   });
   const [errors1, setErrors1] = useState<Partial<Record<keyof BirthData, string>>>({});
   const [errors2, setErrors2] = useState<Partial<Record<keyof BirthData, string>>>({});
-  const [showResults, setShowResults] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [apiError, setApiError] = useState<string | null>(null);
+  const [result, setResult] = useState<Mode3Response | null>(null);
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const validationErrors1 = validateBirthData(person1);
     const validationErrors2 = validateBirthData(person2);
     setErrors1(validationErrors1);
     setErrors2(validationErrors2);
+    setApiError(null);
+    
     if (Object.keys(validationErrors1).length === 0 && Object.keys(validationErrors2).length === 0) {
-      setShowResults(true);
+      setLoading(true);
+      console.log('[Mode3] Submitting:', { person1, person2 });
+      
+      try {
+        const response = await submitCoupleMatch(
+          {
+            date: person1.date,
+            time: person1.time,
+            latitude: parseFloat(person1.latitude),
+            longitude: parseFloat(person1.longitude),
+            timezone: 'UTC',
+          },
+          {
+            date: person2.date,
+            time: person2.time,
+            latitude: parseFloat(person2.latitude),
+            longitude: parseFloat(person2.longitude),
+            timezone: 'UTC',
+          }
+        );
+        
+        console.log('[Mode3] Response:', response);
+        setResult(response);
+      } catch (error: any) {
+        console.error('[Mode3] Error:', error);
+        const errorMsg = error.response?.data?.error || error.message || 'Failed to analyze compatibility';
+        setApiError(errorMsg);
+      } finally {
+        setLoading(false);
+      }
     }
   };
 
@@ -45,25 +78,32 @@ const Mode3Page = () => {
         <BirthDataForm data={person2} onChange={setPerson2} label="Person 2" errors={errors2} />
       </div>
 
+      {apiError && (
+        <div className="mt-4 bg-red-900/20 border border-red-500 rounded-lg p-4">
+          <p className="text-red-400 text-sm">{apiError}</p>
+        </div>
+      )}
+
       <button
         onClick={handleSubmit}
-        className="w-full mt-6 bg-[#8b5cf6] hover:bg-[#7c3aed] text-white font-semibold py-3 px-6 rounded-lg transition-colors"
+        disabled={loading}
+        className="w-full mt-6 bg-[#8b5cf6] hover:bg-[#7c3aed] disabled:bg-gray-600 disabled:cursor-not-allowed text-white font-semibold py-3 px-6 rounded-lg transition-colors"
       >
-        Analyze Compatibility
+        {loading ? 'Analyzing...' : 'Analyze Compatibility'}
       </button>
 
-      {showResults && (
+      {result && result.status === 'success' && (
         <div className="mt-8">
           <Mode3Results
-            overallScore={mockMode3Result.overallScore}
-            vectorComponent={mockMode3Result.vectorComponent}
-            ruleComponent={mockMode3Result.ruleComponent}
-            emotionalSync={mockMode3Result.emotionalSync}
-            chemistryIndex={mockMode3Result.chemistryIndex}
-            stabilityIndex={mockMode3Result.stabilityIndex}
-            strengths={mockMode3Result.strengths}
-            challenges={mockMode3Result.challenges}
-            diagnostics={mockMode3Result.diagnostics}
+            overallScore={result.data.overall_score}
+            vectorComponent={result.data.vector_component}
+            ruleComponent={result.data.rule_component}
+            emotionalSync={result.data.emotional_sync}
+            chemistryIndex={result.data.chemistry_index}
+            stabilityIndex={result.data.stability_index}
+            strengths={result.data.strengths}
+            challenges={result.data.challenges}
+            diagnostics={result.diagnostics.bugs}
           />
         </div>
       )}

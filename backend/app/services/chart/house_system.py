@@ -85,11 +85,15 @@ class HouseCalculator:
         Returns:
             House number (1-12)
         """
+        if len(house_cusps) < 12:
+            return 1  # Default if insufficient data
+        
         planet_longitude = planet_longitude % 360
         
         for i in range(12):
             cusp_start = house_cusps[i] % 360
-            cusp_end = house_cusps[(i + 1) % 12] % 360
+            # Next cusp wraps to first cusp after 12th house
+            cusp_end = house_cusps[0] % 360 if i == 11 else house_cusps[i + 1] % 360
             
             # Handle wrap-around at 0/360 degrees
             if cusp_start < cusp_end:

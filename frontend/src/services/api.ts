@@ -9,73 +9,150 @@ const api = axios.create({
   },
 });
 
+// Request interceptor for logging
+api.interceptors.request.use(
+  (config) => {
+    console.log('[API Request]', config.method?.toUpperCase(), config.url);
+    return config;
+  },
+  (error) => {
+    console.error('[API Request Error]', error);
+    return Promise.reject(error);
+  }
+);
+
+// Response interceptor for logging
+api.interceptors.response.use(
+  (response) => {
+    console.log('[API Response]', response.status, response.config.url);
+    return response;
+  },
+  (error) => {
+    console.error('[API Response Error]', error.response?.status, error.response?.data);
+    return Promise.reject(error);
+  }
+);
+
 export interface BirthDataPayload {
-  name: string;
-  birth_date: string;
-  birth_time: string;
+  date: string;
+  time: string;
   latitude: number;
   longitude: number;
+  timezone?: string;
 }
 
-export interface LoveReadingResponse {
-  person: BirthDataPayload;
+interface DiagnosticBug {
+  code: string;
+  severity: 'CRITICAL' | 'WARNING' | 'INFO';
+  message: string;
+  recommendation: string;
+}
+
+interface DiagnosticsSection {
+  bugs: DiagnosticBug[];
+  system_status?: string;
+  drama_risk_level?: string;
+  recommendation_summary?: string;
+}
+
+interface StandardResponse<T> {
+  status: 'success' | 'error';
+  mode: string;
+  data: T;
+  diagnostics: DiagnosticsSection;
+  timestamp: string;
+}
+
+export interface Mode1Data {
   love_profile: {
-    venus_sign: string;
-    mars_sign: string;
-    moon_sign: string;
-    seventh_house_sign: string;
+    romantic_readiness: number;
+    passion_drive: number;
+    emotional_depth: number;
+    commitment_capacity: number;
   };
-  love_bugs: Array<{
-    code: string;
-    severity: string;
-    message: string;
-    recommendation: string;
-  }>;
-  system_status: string;
+  personality_vector: {
+    venus_mars_harmony: number;
+    sun_moon_balance: number;
+    moon_stability: number;
+    fire_score: number;
+    earth_score: number;
+    air_score: number;
+    water_score: number;
+    hard_aspect_density: number;
+    soft_aspect_density: number;
+  };
+  debug?: {
+    aspects?: Array<{
+      planet_a: string;
+      planet_b: string;
+      aspect: string;
+      orb: number;
+      exact_angle: number;
+      strength: number;
+    }>;
+    aspect_scores?: {
+      total_score: number;
+      harmonious_count: number;
+      challenging_count: number;
+      neutral_count: number;
+      average_strength: number;
+    };
+    [key: string]: any;
+  };
 }
 
-export interface CelebrityMatchResponse {
-  person: BirthDataPayload;
-  top_matches: Array<{
-    name: string;
-    similarity_score: number;
-    compatibility_percentage: number;
-    match_reason: string;
-  }>;
-  system_status: string;
+export interface CelebrityMatch {
+  name: string;
+  occupation?: string;
+  similarity_score: number;
+  match_reason: string;
 }
 
-export interface CoupleMatchResponse {
-  person1: BirthDataPayload;
-  person2: BirthDataPayload;
-  compatibility_score: number;
+export interface Mode2Data {
+  matches: CelebrityMatch[];
+  user_vector: Record<string, number>;
+  total_celebrities: number;
+}
+
+export interface Mode3Data {
+  overall_score: number;
+  vector_component: number;
+  rule_component: number;
   emotional_sync: number;
   chemistry_index: number;
   stability_index: number;
-  love_bugs: Array<{
-    code: string;
-    severity: string;
-    message: string;
-    recommendation: string;
-  }>;
-  system_status: string;
+  strengths: string[];
+  challenges: string[];
 }
 
-export const submitLoveReading = async (data: BirthDataPayload): Promise<LoveReadingResponse> => {
-  const response = await api.post<LoveReadingResponse>('/api/mode1/love-reading', data);
+export type Mode1Response = StandardResponse<Mode1Data>;
+export type Mode2Response = StandardResponse<Mode2Data>;
+export type Mode3Response = StandardResponse<Mode3Data>;
+
+export const submitLoveReading = async (data: BirthDataPayload, debug: boolean = false): Promise<Mode1Response> => {
+  const response = await api.post<Mode1Response>('/api/mode1/love-reading', {
+    birth_data: data,
+    debug,
+  });
   return response.data;
 };
 
-export const submitCelebrityMatch = async (data: BirthDataPayload): Promise<CelebrityMatchResponse> => {
-  const response = await api.post<CelebrityMatchResponse>('/api/mode2/celebrity-match', data);
+export const submitCelebrityMatch = async (
+  data: BirthDataPayload,
+  topN: number = 5
+): Promise<Mode2Response> => {
+  const response = await api.post<Mode2Response>('/api/mode2/celebrity-match', {
+    birth_data: data,
+    top_n: topN,
+  });
   return response.data;
 };
 
 export const submitCoupleMatch = async (
   person1: BirthDataPayload,
   person2: BirthDataPayload
-): Promise<CoupleMatchResponse> => {
-  const response = await api.post<CoupleMatchResponse>('/api/mode3/couple-match', {
+): Promise<Mode3Response> => {
+  const response = await api.post<Mode3Response>('/api/mode3/couple-match', {
     person1,
     person2,
   });

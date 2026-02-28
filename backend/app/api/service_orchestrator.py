@@ -1,6 +1,7 @@
 """Service Orchestrator - Business logic for all modes"""
 
 from typing import Dict, List, Tuple
+import logging
 from ..services.chart.birth_chart import BirthChartCalculator
 from ..services.aspects.aspect_detector import AspectDetector
 from ..services.aspects.aspect_scorer import AspectScorer
@@ -9,6 +10,8 @@ from ..services.vector.similarity_engine import SimilarityEngine
 from ..services.compatibility.compatibility_aggregator import CompatibilityAggregator
 from ..services.intelligence.humor_intelligence import HumorIntelligence
 from ..database.public_figure_db import PublicFigureDatabase
+
+logger = logging.getLogger(__name__)
 
 class ServiceOrchestrator:
     """
@@ -28,43 +31,88 @@ class ServiceOrchestrator:
     
     def _calculate_chart_and_vector(self, birth_data: Dict) -> Tuple[Dict, Dict]:
         """
-        Calculate birth chart and feature vector
+        Calculate birth chart and feature vector with fallback
         
         Returns:
             (chart_data, vector_data)
+            
+        Note: Returns graceful fallback if Swiss Ephemeris fails (Demo Safety Mode)
         """
-        # Calculate chart
-        chart = self.chart_calculator.calculate_chart_json(
-            date=birth_data['date'],
-            time=birth_data['time'],
-            latitude=birth_data['latitude'],
-            longitude=birth_data['longitude'],
-            timezone=birth_data.get('timezone', 'UTC')
-        )
-        
-        if not chart['success']:
-            raise ValueError(f"Chart calculation failed: {chart.get('error')}")
-        
-        # Detect aspects
-        planets = {p['name']: p['longitude'] for p in chart['data']['planets']}
-        aspects = self.aspect_detector.detect_aspects(planets)
-        scores = self.aspect_scorer.score_aspect_list(aspects)
-        
-        # Build vector
-        vector_data = self.vector_builder.build_vector(
-            chart['data'],
-            {'aspects': [a.to_dict() for a in aspects], 'scores': scores}
-        )
-        
-        return chart['data'], vector_data
+        try:
+            # Calculate chart
+            chart = self.chart_calculator.calculate_chart_json(
+                date=birth_data['date'],
+                time=birth_data['time'],
+                latitude=birth_data['latitude'],
+                longitude=birth_data['longitude'],
+                timezone=birth_data.get('timezone', 'UTC')
+            )
+            
+            if not chart['success']:
+                logger.error(f"Chart calculation failed: {chart.get('error')}")
+                return self._get_fallback_chart_and_vector()
+            
+            # Detect aspects
+            planets = {p['name']: p['longitude'] for p in chart['data']['planets']}
+            aspects = self.aspect_detector.detect_aspects(planets)
+            scores = self.aspect_scorer.score_aspect_list(aspects)
+            
+            # Build vector
+            vector_data = self.vector_builder.build_vector(
+                chart['data'],
+                {'aspects': [a.to_dict() for a in aspects], 'scores': scores}
+            )
+            
+            return chart['data'], vector_data
+            
+        except Exception as e:
+            logger.error(f"Chart/vector calculation failed: {e}, using fallback")
+            return self._get_fallback_chart_and_vector()
     
-    def execute_mode1(self, birth_data: Dict) -> Dict:
+    def _get_fallback_chart_and_vector(self) -> Tuple[Dict, Dict]:
+        """
+        Generate fallback chart and vector for demo safety
+        
+        Returns balanced/neutral values when calculation fails
+        """
+        logger.warning("Using fallback chart and vector (Demo Safety Mode)")
+        
+        fallback_chart = {
+            'planets': [],
+            'houses': {'cusps': [], 'ascendant': {}, 'midheaven': {}}
+        }
+        
+        fallback_vector = {
+            'feature_vector': [0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5],
+            'feature_dict': {
+                'venus_mars_harmony': 0.5,
+                'sun_moon_balance': 0.5,
+                'moon_stability': 0.5,
+                'fire_score': 0.5,
+                'earth_score': 0.5,
+                'air_score': 0.5,
+                'water_score': 0.5,
+                'hard_aspect_density': 0.5,
+                'soft_aspect_density': 0.5,
+                'seventh_house_strength': 0.5,
+                'venus_element': 0.5,
+                'mars_element': 0.5,
+                'aspect_quality': 0.5,
+                'fixed_score': 0.5,
+                'cardinal_score': 0.5,
+                'mutable_score': 0.5
+            }
+        }
+        
+        return fallback_chart, fallback_vector
+    
+    def execute_mode1(self, birth_data: Dict, debug: bool = False) -> Dict:
         """
         Mode 1: Single-person love reading
         
         Returns natal love analysis without comparison
         """
-        _, vector_data = self._calculate_chart_and_vector(birth_data)
+        chart_data, vector_data = self._calculate_chart_and_vector(birth_data)
         
         # Interpret single chart
         love_profile = self.compatibility_aggregator.interpret_single_chart(
@@ -77,15 +125,29 @@ class ServiceOrchestrator:
             vector_data['feature_dict']
         )
         
-        return {
+        result = {
             'success': True,
             'mode': 'mode1',
             'love_profile': love_profile,
             'personality_vector': vector_data['feature_dict'],
-            'diagnostics': diagnostics
+            'diagnostics': diagnostics if diagnostics else {}
         }
+        
+        # Add debug info if requested
+        if debug:
+            aspects_data = vector_data.get('aspects_data', {})
+            result['debug'] = {
+                'raw_feature_vector': vector_data['feature_vector'],
+                'feature_labels': self.vector_builder.FEATURE_LABELS,
+                'vector_length': len(vector_data['feature_vector']),
+                'aspects': aspects_data.get('aspects', []),
+                'aspect_scores': aspects_data.get('scores', {}),
+                'chart_data': chart_data
+            }
+        
+        return result
     
-    def execute_mode2(self, birth_data: Dict, top_n: int = 5) -> Dict:
+    def execute_mode2(self, birth_data: Dict, top_n: int = 5, debug: bool = False) -> Dict:
         """
         Mode 2: Celebrity matching
         
@@ -119,15 +181,25 @@ class ServiceOrchestrator:
         
         stats = self.figure_db.get_stats()
         
-        return {
+        result = {
             'success': True,
             'mode': 'mode2',
             'matches': formatted_matches,
             'user_vector': vector_data['feature_dict'],
             'total_celebrities': stats['total_figures']
         }
+        
+        # Add debug info if requested
+        if debug:
+            result['debug'] = {
+                'raw_feature_vector': vector_data['feature_vector'],
+                'feature_labels': self.vector_builder.FEATURE_LABELS,
+                'raw_similarity_scores': [score for _, score in matches]
+            }
+        
+        return result
     
-    def execute_mode3(self, person1_data: Dict, person2_data: Dict) -> Dict:
+    def execute_mode3(self, person1_data: Dict, person2_data: Dict, debug: bool = False) -> Dict:
         """
         Mode 3: Couple compatibility
         
@@ -166,7 +238,7 @@ class ServiceOrchestrator:
              vector2_data['feature_dict']['moon_stability']) / 2
         )
         
-        return {
+        result = {
             'success': True,
             'mode': 'mode3',
             'overall_score': compatibility['overall_score'],
@@ -177,8 +249,25 @@ class ServiceOrchestrator:
             'stability_index': compatibility['stability_index'],
             'strengths': strengths,
             'challenges': challenges,
-            'diagnostics': diagnostics
+            'diagnostics': diagnostics if diagnostics else {}
         }
+        
+        # Add debug info if requested
+        if debug:
+            result['debug'] = {
+                'person1_raw_vector': vector1_data['feature_vector'],
+                'person2_raw_vector': vector2_data['feature_vector'],
+                'feature_labels': self.vector_builder.FEATURE_LABELS,
+                'cosine_similarity_raw': similarity_result['similarity_score'],
+                'cosine_similarity_percentage': similarity_result['percentage'],
+                'rule_based_score': compatibility.get('rule_score', 0),
+                'hard_aspect_density_p1': vector1_data['feature_dict']['hard_aspect_density'],
+                'hard_aspect_density_p2': vector2_data['feature_dict']['hard_aspect_density'],
+                'soft_aspect_density_p1': vector1_data['feature_dict']['soft_aspect_density'],
+                'soft_aspect_density_p2': vector2_data['feature_dict']['soft_aspect_density']
+            }
+        
+        return result
     
     def _generate_match_reason(self, user_vector: Dict, celeb_vector: List) -> str:
         """Generate explanation for celebrity match"""

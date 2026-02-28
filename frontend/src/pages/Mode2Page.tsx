@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { BirthDataForm, type BirthData } from '../components/forms/BirthDataForm';
 import { Mode2Results } from '../components/results/Mode2Results';
 import { validateBirthData } from '../utils/validation';
-import { mockMode2Result } from '../data/mockResults';
+import { submitCelebrityMatch, type Mode2Response } from '../services/api';
 
 const Mode2Page = () => {
   const [data, setData] = useState<BirthData>({
@@ -13,13 +13,37 @@ const Mode2Page = () => {
     longitude: '',
   });
   const [errors, setErrors] = useState<Partial<Record<keyof BirthData, string>>>({});
-  const [showResults, setShowResults] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [apiError, setApiError] = useState<string | null>(null);
+  const [result, setResult] = useState<Mode2Response | null>(null);
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const validationErrors = validateBirthData(data);
     setErrors(validationErrors);
+    setApiError(null);
+    
     if (Object.keys(validationErrors).length === 0) {
-      setShowResults(true);
+      setLoading(true);
+      console.log('[Mode2] Submitting:', data);
+      
+      try {
+        const response = await submitCelebrityMatch({
+          date: data.date,
+          time: data.time,
+          latitude: parseFloat(data.latitude),
+          longitude: parseFloat(data.longitude),
+          timezone: 'UTC',
+        }, 5);
+        
+        console.log('[Mode2] Response:', response);
+        setResult(response);
+      } catch (error: any) {
+        console.error('[Mode2] Error:', error);
+        const errorMsg = error.response?.data?.error || error.message || 'Failed to match celebrities';
+        setApiError(errorMsg);
+      } finally {
+        setLoading(false);
+      }
     }
   };
 
@@ -32,19 +56,26 @@ const Mode2Page = () => {
 
       <BirthDataForm data={data} onChange={setData} errors={errors} />
 
+      {apiError && (
+        <div className="mt-4 bg-red-900/20 border border-red-500 rounded-lg p-4">
+          <p className="text-red-400 text-sm">{apiError}</p>
+        </div>
+      )}
+
       <button
         onClick={handleSubmit}
-        className="w-full mt-6 bg-[#00d9ff] hover:bg-[#00c4e6] text-black font-semibold py-3 px-6 rounded-lg transition-colors"
+        disabled={loading}
+        className="w-full mt-6 bg-[#00d9ff] hover:bg-[#00c4e6] disabled:bg-gray-600 disabled:cursor-not-allowed text-black font-semibold py-3 px-6 rounded-lg transition-colors"
       >
-        Find Celebrity Matches
+        {loading ? 'Matching...' : 'Find Celebrity Matches'}
       </button>
 
-      {showResults && (
+      {result && result.status === 'success' && (
         <div className="mt-8">
           <Mode2Results
-            matches={mockMode2Result.matches}
-            userVector={mockMode2Result.userVector}
-            totalCelebrities={mockMode2Result.totalCelebrities}
+            matches={result.data.matches}
+            userVector={result.data.user_vector}
+            totalCelebrities={result.data.total_celebrities}
           />
         </div>
       )}

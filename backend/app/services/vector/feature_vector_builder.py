@@ -45,7 +45,14 @@ class FeatureVectorBuilder:
         'seventh_house_strength',
         'venus_mars_harmony',
         'sun_moon_balance',
-        'aspect_quality'
+        'aspect_quality',
+        'fire_score',
+        'earth_score',
+        'air_score',
+        'water_score',
+        'fixed_score',
+        'cardinal_score',
+        'mutable_score'
     ]
     
     @classmethod
@@ -201,6 +208,83 @@ class FeatureVectorBuilder:
         return 0.4
     
     @classmethod
+    def calculate_element_distribution(cls, planets: List[Dict]) -> Dict[str, float]:
+        """
+        Calculate distribution of planets across elements
+        
+        Returns:
+            {'fire': 0-1, 'earth': 0-1, 'air': 0-1, 'water': 0-1}
+        """
+        element_counts = {'fire': 0, 'earth': 0, 'air': 0, 'water': 0}
+        
+        for planet in planets:
+            sign = planet.get('sign', '')
+            element = cls.ELEMENT_MAP.get(sign)
+            if element:
+                if element == Element.FIRE:
+                    element_counts['fire'] += 1
+                elif element == Element.EARTH:
+                    element_counts['earth'] += 1
+                elif element == Element.AIR:
+                    element_counts['air'] += 1
+                elif element == Element.WATER:
+                    element_counts['water'] += 1
+        
+        total = len(planets) if planets else 1
+        return {
+            'fire': round(element_counts['fire'] / total, 3),
+            'earth': round(element_counts['earth'] / total, 3),
+            'air': round(element_counts['air'] / total, 3),
+            'water': round(element_counts['water'] / total, 3)
+        }
+    
+    @classmethod
+    def calculate_modality_distribution(cls, planets: List[Dict]) -> Dict[str, float]:
+        """
+        Calculate distribution of planets across modalities
+        
+        Returns:
+            {'cardinal': 0-1, 'fixed': 0-1, 'mutable': 0-1}
+        """
+        cardinal_signs = ['Aries', 'Cancer', 'Libra', 'Capricorn']
+        fixed_signs = ['Taurus', 'Leo', 'Scorpio', 'Aquarius']
+        mutable_signs = ['Gemini', 'Virgo', 'Sagittarius', 'Pisces']
+        
+        modality_counts = {'cardinal': 0, 'fixed': 0, 'mutable': 0}
+        
+        for planet in planets:
+            sign = planet.get('sign', '')
+            if sign in cardinal_signs:
+                modality_counts['cardinal'] += 1
+            elif sign in fixed_signs:
+                modality_counts['fixed'] += 1
+            elif sign in mutable_signs:
+                modality_counts['mutable'] += 1
+        
+        total = len(planets) if planets else 1
+        return {
+            'cardinal': round(modality_counts['cardinal'] / total, 3),
+            'fixed': round(modality_counts['fixed'] / total, 3),
+            'mutable': round(modality_counts['mutable'] / total, 3)
+        }
+        """
+        Calculate overall aspect quality score
+        
+        Based on harmonious vs challenging aspect ratio
+        """
+        harmonious = aspect_scores.get('harmonious_count', 0)
+        challenging = aspect_scores.get('challenging_count', 0)
+        total = harmonious + challenging
+        
+        if total == 0:
+            return 0.5
+        
+        # Ratio of harmonious aspects
+        quality = harmonious / total
+        
+        return round(quality, 3)
+    
+    @classmethod
     def calculate_aspect_quality(cls, aspect_scores: Dict) -> float:
         """
         Calculate overall aspect quality score
@@ -280,6 +364,19 @@ class FeatureVectorBuilder:
         aspect_scores = aspects_data.get('scores', {}) if aspects_data else {}
         aspect_quality = self.calculate_aspect_quality(aspect_scores)
         
+        # Features 9-12: Element distribution
+        element_dist = self.calculate_element_distribution(planets)
+        fire_score = element_dist['fire']
+        earth_score = element_dist['earth']
+        air_score = element_dist['air']
+        water_score = element_dist['water']
+        
+        # Features 13-15: Modality distribution
+        modality_dist = self.calculate_modality_distribution(planets)
+        fixed_score = modality_dist['fixed']
+        cardinal_score = modality_dist['cardinal']
+        mutable_score = modality_dist['mutable']
+        
         # Build vector
         feature_vector = [
             venus_element,
@@ -290,7 +387,14 @@ class FeatureVectorBuilder:
             seventh_house,
             venus_mars,
             sun_moon,
-            aspect_quality
+            aspect_quality,
+            fire_score,
+            earth_score,
+            air_score,
+            water_score,
+            fixed_score,
+            cardinal_score,
+            mutable_score
         ]
         
         # Build feature dictionary
@@ -300,7 +404,8 @@ class FeatureVectorBuilder:
             'feature_vector': feature_vector,
             'feature_labels': self.FEATURE_LABELS,
             'feature_dict': feature_dict,
-            'dimensions': len(feature_vector)
+            'dimensions': len(feature_vector),
+            'aspects_data': aspects_data  # Include for UI display
         }
     
     @staticmethod

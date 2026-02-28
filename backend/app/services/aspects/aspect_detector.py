@@ -118,7 +118,7 @@ class AspectDetector:
             
             if deviation <= config.orb:
                 strength = self.calculate_aspect_strength(deviation, config.orb)
-                return config.aspect_type, deviation, strength
+                return config.type, deviation, strength
         
         return None, None, None
     
@@ -143,7 +143,7 @@ class AspectDetector:
                 
                 aspect_type, orb, strength = self.detect_aspect(long_a, long_b)
                 
-                if aspect_type:
+                if aspect_type is not None:
                     angular_distance = self.calculate_angular_distance(long_a, long_b)
                     
                     aspects.append(DetectedAspect(
