@@ -5,9 +5,6 @@ const Home = () => {
     <div className="max-w-6xl mx-auto">
       {/* Header Section */}
       <div className="text-center mb-16">
-        <h1 className="text-5xl xl:text-6xl font-bold mb-6 bg-gradient-to-r from-[#B5A593] to-[#E07A5F] bg-clip-text text-transparent">
-          Love Debugging Lab
-        </h1>
         <p className="text-[#a0a6b0] text-xl mb-2">
           Professional Astrological Compatibility System
         </p>

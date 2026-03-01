@@ -9,20 +9,25 @@ import Mode3Page from './pages/Mode3Page';
 
 function App() {
   return (
-    <BirthDataProvider>
-      <ResultsCacheProvider>
-        <BrowserRouter>
-          <Layout>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/mode1" element={<Mode1Page />} />
-              <Route path="/mode2" element={<Mode2Page />} />
-              <Route path="/mode3" element={<Mode3Page />} />
-            </Routes>
-          </Layout>
-        </BrowserRouter>
-      </ResultsCacheProvider>
-    </BirthDataProvider>
+    <>
+      <video autoPlay loop muted playsInline className="bg-video">
+        <source src="/starbg.mp4" type="video/mp4" />
+      </video>
+      <BirthDataProvider>
+        <ResultsCacheProvider>
+          <BrowserRouter>
+            <Layout>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/mode1" element={<Mode1Page />} />
+                <Route path="/mode2" element={<Mode2Page />} />
+                <Route path="/mode3" element={<Mode3Page />} />
+              </Routes>
+            </Layout>
+          </BrowserRouter>
+        </ResultsCacheProvider>
+      </BirthDataProvider>
+    </>
   );
 }
 

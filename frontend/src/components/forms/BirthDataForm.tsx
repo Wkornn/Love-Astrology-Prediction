@@ -32,13 +32,13 @@ export const BirthDataForm = ({ data, onChange, label, errors = {} }: BirthDataF
     }
   };
 
-  const inputClass = "w-full bg-[#2a2d38] border border-[#4E5564] rounded-lg px-4 py-2.5 text-white placeholder-gray-500 focus:outline-none focus:border-[#B5A593] transition-colors";
+  const inputClass = "w-full bg-[#2a2d38]/80 backdrop-blur-sm border border-[#4E5564]/50 rounded-lg px-4 py-2.5 text-white placeholder-gray-400 focus:outline-none focus:border-[#B5A593] transition-colors";
   const errorClass = "border-red-500 focus:border-red-500";
-  const labelClass = "block text-sm font-medium text-gray-300 mb-2";
+  const labelClass = "block text-sm font-medium text-[#e0e6ed] mb-2 drop-shadow-md";
   const errorTextClass = "text-red-400 text-xs mt-1";
 
   return (
-    <div className="space-y-4 p-6 bg-[#1A1D29] border border-[#4E5564] rounded-xl">
+    <div className="space-y-4 p-6 bg-[#1A1D29]/40 backdrop-blur-md border border-[#4E5564]/30 rounded-xl">
       {label && <h3 className="text-lg font-semibold text-[#B5A593] mb-4">{label}</h3>}
       
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
