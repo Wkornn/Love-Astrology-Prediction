@@ -25,7 +25,6 @@ export const CosineAlignmentVisualization = ({ matches }: CosineAlignmentVisuali
   const [currentIndex, setCurrentIndex] = useState(0);
   const [phase, setPhase] = useState<'init' | 'animating' | 'final'>('init');
   const [currentAngle, setCurrentAngle] = useState(120);
-  const [key, setKey] = useState(0);
   
   const size = 600;
   const center = size / 2;
@@ -68,7 +67,7 @@ export const CosineAlignmentVisualization = ({ matches }: CosineAlignmentVisuali
     }, 300);
     
     return () => clearTimeout(timer1);
-  }, [finalAngle, currentIndex, key]);
+  }, [finalAngle, currentIndex]);
 
   const nextMatch = () => {
     if (currentIndex < matches.length - 1) {
@@ -125,7 +124,7 @@ export const CosineAlignmentVisualization = ({ matches }: CosineAlignmentVisuali
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 items-start">
         {/* Left: Vector Graph */}
         <div className="flex flex-col items-center">
-          <motion.div className="text-center mb-4" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }} key={`${currentIndex}-${key}`}>
+          <motion.div className="text-center mb-4" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }} key={currentIndex}>
             <p className="text-base text-purple-400">
               {phase === 'init' && 'Initializing Vector Alignment...'}
               {phase === 'animating' && (

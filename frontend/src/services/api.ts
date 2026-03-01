@@ -81,6 +81,14 @@ export interface Mode1Data {
     hard_aspect_density: number;
     soft_aspect_density: number;
   };
+  narrative?: {
+    headline?: string;
+    personality_summary?: string;
+    love_style?: string;
+    emotional_pattern?: string;
+    relationship_advice?: string;
+    bug_explanation?: string;
+  };
   debug?: {
     aspects?: Array<{
       planet_a: string;
@@ -123,6 +131,13 @@ export interface Mode3Data {
   stability_index: number;
   strengths: string[];
   challenges: string[];
+  narrative?: {
+    headline?: string;
+    summary?: string;
+    strengths_detail?: string;
+    challenges_detail?: string;
+    advice?: string;
+  };
 }
 
 export type Mode1Response = StandardResponse<Mode1Data>;

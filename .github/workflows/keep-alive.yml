@@ -12,4 +12,4 @@ jobs:
       - name: Ping Backend Health Endpoint
         run: |
           echo "Pinging backend at $(date)"
-          curl -f https://your-backend.onrender.com/health || echo "Backend might be sleeping, will retry"
+          curl -f https://love-astrology-prediction.onrender.com/health || echo "Backend might be sleeping, will retry"

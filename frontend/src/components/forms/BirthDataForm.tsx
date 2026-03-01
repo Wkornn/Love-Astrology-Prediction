@@ -77,7 +77,7 @@ export const BirthDataForm = ({ data, onChange, label, errors = {} }: BirthDataF
       <div>
         <label className={labelClass}>Birth Location</label>
         <LocationSearch
-          onSelect={(lat, lon, name) => {
+          onSelect={(lat, lon) => {
             onChange({ 
               ...data, 
               latitude: lat.toString(), 

@@ -77,9 +77,9 @@ export const Mode1Results = ({ loveProfile, personalityVector, diagnostics = [],
     <div className="space-y-6">
       {/* Vector Visualization */}
       <LoveVector3D 
-        emotionalIntensity={loveProfile.emotional_maturity || 0}
-        passionIndex={loveProfile.passion_level || 0}
-        conflictReactivity={loveProfile.relationship_focus || 0}
+        emotionalIntensity={loveProfile.emotional_depth || 0}
+        passionIndex={loveProfile.passion_drive || 0}
+        conflictReactivity={loveProfile.commitment_capacity || 0}
       />
 
       {/* LLM Narrative Section */}

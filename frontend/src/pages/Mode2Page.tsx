@@ -3,7 +3,7 @@ import { useBirthData } from '../context/BirthDataContext';
 import { useResultsCache } from '../context/ResultsCacheContext';
 import { Mode2Results } from '../components/results/Mode2Results';
 import { validateBirthData } from '../utils/validation';
-import { submitCelebrityMatch, type Mode2Response } from '../services/api';
+import { submitCelebrityMatch } from '../services/api';
 
 const Mode2Page = () => {
   const { birthData } = useBirthData();

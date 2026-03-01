@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, ReactNode } from 'react';
+import { createContext, useContext, useState, type ReactNode } from 'react';
 import type { Mode1Response, Mode2Response, Mode3Response } from '../services/api';
 
 interface ResultsCacheContextType {

@@ -4,7 +4,7 @@ import { useResultsCache } from '../context/ResultsCacheContext';
 import { BirthDataForm, type BirthData } from '../components/forms/BirthDataForm';
 import { Mode3Results } from '../components/results/Mode3Results';
 import { validateBirthData } from '../utils/validation';
-import { submitCoupleMatch, type Mode3Response } from '../services/api';
+import { submitCoupleMatch } from '../services/api';
 
 const Mode3Page = () => {
   const { birthData: person1 } = useBirthData();
