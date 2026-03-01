@@ -156,8 +156,8 @@ export const Mode1Results = ({ loveProfile, personalityVector, diagnostics = [],
             const info = descriptions[key];
             return (
               <div key={key} className="text-center bg-[#2a2d38] rounded-lg p-4">
-                <div className="text-2xl font-bold mb-1" style={{ color: getScoreColor(value) }}>
-                  {formatPercent(value)}%
+                <div className="text-2xl font-bold mb-1" style={{ color: getScoreColor(Number(value) || 0) }}>
+                  {formatPercent(Number(value) || 0)}%
                 </div>
                 <div className="text-sm text-gray-400 uppercase mb-2">
                   {key.replace(/_/g, ' ')}
