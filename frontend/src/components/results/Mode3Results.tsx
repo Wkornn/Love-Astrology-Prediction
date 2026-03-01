@@ -1,3 +1,5 @@
+import { CoupleVectorVisualization } from '../visualizations/CoupleVectorVisualization';
+
 interface Mode3ResultsProps {
   overallScore: number;
   vectorComponent: number;
@@ -38,6 +40,13 @@ export const Mode3Results = ({
 
   return (
     <div className="space-y-6">
+      {/* Couple Vector Visualization */}
+      <CoupleVectorVisualization
+        vectorSimilarity={vectorComponent}
+        person1Name="Person 1"
+        person2Name="Person 2"
+      />
+
       {/* Overall Score */}
       <div className="bg-[#1A1D29] border border-[#4E5564] rounded-xl p-8 text-center">
         <div className="text-base text-gray-400 mb-2">OVERALL COMPATIBILITY</div>
