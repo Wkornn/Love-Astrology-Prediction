@@ -20,14 +20,14 @@
    - **Name**: `love-astrology-backend`
    - **Root Directory**: `backend`
    - **Runtime**: `Python 3`
-   - **Build Command**: `pip install --upgrade pip && pip install -r requirements.txt`
+   - **Build Command**: `pip install --no-cache-dir -r requirements.txt`
    - **Start Command**: `uvicorn app.main:app --host 0.0.0.0 --port $PORT`
    - **Instance Type**: `Free`
 
 ### Step 3: Add Environment Variables
 In Render dashboard → Environment:
 ```
-GEMINI_API_KEY=AIzaSyA2dmT4Z_tpZ-TfoJOs1sUAI_ukUc2lZDk
+GEMINI_API_KEY=your_actual_api_key_here
 ```
 
 ### Step 4: Add Disk for SQLite

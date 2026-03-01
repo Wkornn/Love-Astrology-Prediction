@@ -37,7 +37,7 @@ async def mode1_love_reading(request: Mode1Request):
     """
     try:
         result = orchestrator.execute_mode1(
-            request.birth_data.model_dump(),
+            request.birth_data.dict(),
             debug=request.debug
         )
         
@@ -76,7 +76,7 @@ async def mode2_celebrity_match(request: Mode2Request):
     """
     try:
         result = orchestrator.execute_mode2(
-            request.birth_data.model_dump(),
+            request.birth_data.dict(),
             top_n=request.top_n,
             debug=request.debug
         )
@@ -115,8 +115,8 @@ async def mode3_couple_match(request: Mode3Request):
     """
     try:
         result = orchestrator.execute_mode3(
-            request.person1.model_dump(),
-            request.person2.model_dump(),
+            request.person1.dict(),
+            request.person2.dict(),
             debug=request.debug
         )
         
