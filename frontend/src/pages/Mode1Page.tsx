@@ -3,7 +3,7 @@ import { useBirthData } from '../context/BirthDataContext';
 import { useResultsCache } from '../context/ResultsCacheContext';
 import { Mode1Results } from '../components/results/Mode1Results';
 import { validateBirthData } from '../utils/validation';
-import { submitLoveReading, type Mode1Response } from '../services/api';
+import { submitLoveReading } from '../services/api';
 
 const Mode1Page = () => {
   const { birthData } = useBirthData();

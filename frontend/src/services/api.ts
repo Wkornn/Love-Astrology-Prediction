@@ -132,11 +132,12 @@ export interface Mode3Data {
   strengths: string[];
   challenges: string[];
   narrative?: {
-    headline?: string;
-    summary?: string;
-    strengths_detail?: string;
-    challenges_detail?: string;
-    advice?: string;
+    relationship_summary?: string;
+    key_strengths?: string;
+    main_challenges?: string;
+    conflict_pattern?: string;
+    growth_advice?: string;
+    drama_explanation?: string;
   };
 }
 
