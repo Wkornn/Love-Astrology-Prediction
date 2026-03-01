@@ -47,7 +47,7 @@ export const LocationSearch = ({ onSelect }: LocationSearchProps) => {
         <button
           onClick={searchLocation}
           disabled={loading}
-          className="bg-[#8b5cf6] hover:bg-[#7c3aed] disabled:bg-gray-600 text-white px-6 py-2 rounded-lg"
+          className="bg-[#E07A5F] hover:bg-[#c96a4f] disabled:bg-gray-600 text-white px-6 py-2 rounded-lg"
         >
           {loading ? '...' : 'Search'}
         </button>

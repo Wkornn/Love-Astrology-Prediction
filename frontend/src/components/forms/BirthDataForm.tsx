@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import type { ChangeEvent } from 'react';
 import { LocationSearch } from './LocationSearch';
 
@@ -16,20 +17,30 @@ interface BirthDataFormProps {
 }
 
 export const BirthDataForm = ({ data, onChange, label, errors = {} }: BirthDataFormProps) => {
+  const [unknownTime, setUnknownTime] = useState(false);
+
   const handleChange = (field: keyof BirthData) => (e: ChangeEvent<HTMLInputElement>) => {
     onChange({ ...data, [field]: e.target.value });
   };
 
-  const inputClass = "w-full bg-[#1a1a24] border border-[#2a2a3a] rounded-lg px-4 py-2.5 text-white placeholder-gray-500 focus:outline-none focus:border-[#8b5cf6] transition-colors";
+  const handleUnknownTimeChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const checked = e.target.checked;
+    setUnknownTime(checked);
+    if (checked) {
+      onChange({ ...data, time: '12:00' });
+    }
+  };
+
+  const inputClass = "w-full bg-[#2a2d38] border border-[#4E5564] rounded-lg px-4 py-2.5 text-white placeholder-gray-500 focus:outline-none focus:border-[#B5A593] transition-colors";
   const errorClass = "border-red-500 focus:border-red-500";
   const labelClass = "block text-sm font-medium text-gray-300 mb-2";
   const errorTextClass = "text-red-400 text-xs mt-1";
 
   return (
-    <div className="space-y-4 p-6 bg-[#0f0f14] border border-[#2a2a3a] rounded-xl">
-      {label && <h3 className="text-lg font-semibold text-[#8b5cf6] mb-4">{label}</h3>}
+    <div className="space-y-4 p-6 bg-[#1A1D29] border border-[#4E5564] rounded-xl">
+      {label && <h3 className="text-lg font-semibold text-[#B5A593] mb-4">{label}</h3>}
       
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
         <div>
           <label className={labelClass}>Date of Birth</label>
           <input
@@ -47,8 +58,18 @@ export const BirthDataForm = ({ data, onChange, label, errors = {} }: BirthDataF
             type="time"
             value={data.time}
             onChange={handleChange('time')}
-            className={`${inputClass} ${errors.time ? errorClass : ''}`}
+            disabled={unknownTime}
+            className={`${inputClass} ${errors.time ? errorClass : ''} ${unknownTime ? 'opacity-60 cursor-not-allowed text-transparent' : ''}`}
           />
+          <label className="flex items-center mt-2 text-sm text-gray-400 cursor-pointer">
+            <input
+              type="checkbox"
+              checked={unknownTime}
+              onChange={handleUnknownTimeChange}
+              className="mr-2 w-4 h-4 accent-[#B5A593]"
+            />
+            I don't know my birth time
+          </label>
           {errors.time && <p className={errorTextClass}>{errors.time}</p>}
         </div>
       </div>
@@ -66,18 +87,16 @@ export const BirthDataForm = ({ data, onChange, label, errors = {} }: BirthDataF
         />
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
         <div>
           <label className={labelClass}>Latitude</label>
           <input
             type="text"
             value={data.latitude}
-            onChange={handleChange('latitude')}
-            placeholder="e.g., 40.7128"
-            className={`${inputClass} ${errors.latitude ? errorClass : ''}`}
+            placeholder="Auto-filled from location search"
+            className={`${inputClass} opacity-60 cursor-not-allowed`}
             readOnly
           />
-          {errors.latitude && <p className={errorTextClass}>{errors.latitude}</p>}
         </div>
 
         <div>
@@ -85,14 +104,17 @@ export const BirthDataForm = ({ data, onChange, label, errors = {} }: BirthDataF
           <input
             type="text"
             value={data.longitude}
-            onChange={handleChange('longitude')}
-            placeholder="e.g., -74.0060"
-            className={`${inputClass} ${errors.longitude ? errorClass : ''}`}
+            placeholder="Auto-filled from location search"
+            className={`${inputClass} opacity-60 cursor-not-allowed`}
             readOnly
           />
-          {errors.longitude && <p className={errorTextClass}>{errors.longitude}</p>}
         </div>
       </div>
+      {(errors.latitude || errors.longitude) && (
+        <p className={errorTextClass}>
+          {errors.latitude || errors.longitude}
+        </p>
+      )}
     </div>
   );
 };

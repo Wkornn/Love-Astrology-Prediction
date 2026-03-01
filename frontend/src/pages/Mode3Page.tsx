@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useBirthData } from '../context/BirthDataContext';
+import { useResultsCache } from '../context/ResultsCacheContext';
 import { BirthDataForm, type BirthData } from '../components/forms/BirthDataForm';
 import { Mode3Results } from '../components/results/Mode3Results';
 import { validateBirthData } from '../utils/validation';
@@ -7,6 +8,7 @@ import { submitCoupleMatch, type Mode3Response } from '../services/api';
 
 const Mode3Page = () => {
   const { birthData: person1 } = useBirthData();
+  const { mode3Result, setMode3Result } = useResultsCache();
   const [person2, setPerson2] = useState<BirthData>({
     date: '',
     time: '',
@@ -16,7 +18,6 @@ const Mode3Page = () => {
   const [errors2, setErrors2] = useState<Partial<Record<keyof BirthData, string>>>({});
   const [loading, setLoading] = useState(false);
   const [apiError, setApiError] = useState<string | null>(null);
-  const [result, setResult] = useState<Mode3Response | null>(null);
 
   const handleSubmit = async () => {
     const validationErrors1 = validateBirthData(person1);
@@ -49,7 +50,7 @@ const Mode3Page = () => {
         }
       );
       
-      setResult(response);
+      setMode3Result(response);
     } catch (error: any) {
       setApiError(error.response?.data?.error || error.message || 'Failed to analyze compatibility');
     } finally {
@@ -65,7 +66,7 @@ const Mode3Page = () => {
       </div>
 
       <div className="mb-8">
-        <h3 className="text-lg font-semibold text-[#8b5cf6] mb-4">Person 2 Birth Data</h3>
+        <h3 className="text-lg font-semibold text-[#B5A593] mb-4">Person 2 Birth Data</h3>
         <BirthDataForm data={person2} onChange={setPerson2} errors={errors2} />
       </div>
 
@@ -78,22 +79,22 @@ const Mode3Page = () => {
       <button
         onClick={handleSubmit}
         disabled={loading}
-        className="w-full mb-8 bg-[#8b5cf6] hover:bg-[#7c3aed] disabled:bg-gray-600 disabled:cursor-not-allowed text-white font-semibold py-3 px-6 rounded-lg transition-colors"
+        className="w-full mb-8 bg-[#B5A593] hover:bg-[#9d8a78] disabled:bg-gray-600 disabled:cursor-not-allowed text-black font-semibold py-3 px-6 rounded-lg transition-colors"
       >
         {loading ? 'Analyzing...' : 'Analyze Compatibility'}
       </button>
 
-      {result && result.status === 'success' && (
+      {mode3Result && mode3Result.status === 'success' && (
         <Mode3Results
-          overallScore={result.data.overall_score}
-          vectorComponent={result.data.vector_component}
-          ruleComponent={result.data.rule_component}
-          emotionalSync={result.data.emotional_sync}
-          chemistryIndex={result.data.chemistry_index}
-          stabilityIndex={result.data.stability_index}
-          strengths={result.data.strengths}
-          challenges={result.data.challenges}
-          narrative={result.data.narrative}
+          overallScore={mode3Result.data.overall_score}
+          vectorComponent={mode3Result.data.vector_component}
+          ruleComponent={mode3Result.data.rule_component}
+          emotionalSync={mode3Result.data.emotional_sync}
+          chemistryIndex={mode3Result.data.chemistry_index}
+          stabilityIndex={mode3Result.data.stability_index}
+          strengths={mode3Result.data.strengths}
+          challenges={mode3Result.data.challenges}
+          narrative={mode3Result.data.narrative}
         />
       )}
     </div>

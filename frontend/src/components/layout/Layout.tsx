@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import { useBirthData } from '../../context/BirthDataContext';
+import { useResultsCache } from '../../context/ResultsCacheContext';
 import { BirthDataForm } from '../forms/BirthDataForm';
 import { validateBirthData } from '../../utils/validation';
 import { useState } from 'react';
@@ -12,10 +13,12 @@ interface LayoutProps {
 
 const Layout = ({ children }: LayoutProps) => {
   const { birthData, setBirthData, clearBirthData } = useBirthData();
+  const { clearAllResults } = useResultsCache();
   const [errors, setErrors] = useState<Partial<Record<keyof typeof birthData, string>>>({});
 
   const handleClear = () => {
     clearBirthData();
+    clearAllResults();
     setErrors({});
   };
 
@@ -32,7 +35,7 @@ const Layout = ({ children }: LayoutProps) => {
           {/* Shared Birth Data Form */}
           <div className="mb-8">
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-xl font-semibold text-[#8b5cf6]">Your Birth Data</h2>
+              <h2 className="text-xl font-semibold text-[#B5A593]">Your Birth Data</h2>
               <button
                 onClick={handleClear}
                 className="bg-[#2a2a3a] hover:bg-[#3a3a4a] text-white px-4 py-2 rounded-lg text-sm"

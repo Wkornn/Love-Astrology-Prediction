@@ -29,8 +29,8 @@ export const Mode3Results = ({
   narrative,
 }: Mode3ResultsProps) => {
   const getScoreColor = (score: number) => {
-    if (score >= 75) return '#00d9ff';
-    if (score >= 50) return '#8b5cf6';
+    if (score >= 75) return '#E07A5F';
+    if (score >= 50) return '#B5A593';
     return '#f59e0b';
   };
 
@@ -39,59 +39,66 @@ export const Mode3Results = ({
   return (
     <div className="space-y-6">
       {/* Overall Score */}
-      <div className="bg-[#0f0f14] border border-[#2a2a3a] rounded-xl p-8 text-center">
-        <div className="text-sm text-gray-400 mb-2">OVERALL COMPATIBILITY</div>
+      <div className="bg-[#1A1D29] border border-[#4E5564] rounded-xl p-8 text-center">
+        <div className="text-base text-gray-400 mb-2">OVERALL COMPATIBILITY</div>
+        <div className="text-sm text-[#B5A593] mb-3">ความเข้ากันได้โดยรวม</div>
         <div className="text-7xl font-bold mb-2" style={{ color: getScoreColor(overallScore) }}>
           {formatScore(overallScore)}%
         </div>
-        <div className="flex justify-center gap-6 text-sm">
+        <div className="flex justify-center gap-6 text-base">
           <div>
             <span className="text-gray-400">Vector: </span>
-            <span className="text-[#8b5cf6] font-semibold">{formatScore(vectorComponent)}%</span>
+            <span className="text-[#B5A593] font-semibold">{formatScore(vectorComponent)}%</span>
           </div>
           <div>
             <span className="text-gray-400">Rules: </span>
-            <span className="text-[#00d9ff] font-semibold">{formatScore(ruleComponent)}%</span>
+            <span className="text-[#E07A5F] font-semibold">{formatScore(ruleComponent)}%</span>
           </div>
         </div>
       </div>
 
       {/* Compatibility Indices */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="bg-[#0f0f14] border border-[#2a2a3a] rounded-xl p-6">
-          <div className="text-xs text-gray-400 mb-2">EMOTIONAL SYNC</div>
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-4">
+        <div className="bg-[#1A1D29] border border-[#4E5564] rounded-xl p-6">
+          <div className="text-sm text-gray-400 mb-1">EMOTIONAL SYNC</div>
+          <div className="text-base text-[#E07A5F] mb-2">ความสอดคล้องทางอารมณ์</div>
           <div className="text-4xl font-bold mb-2" style={{ color: getScoreColor(emotionalSync) }}>
             {formatScore(emotionalSync)}%
           </div>
-          <div className="h-2 bg-[#1a1a24] rounded-full overflow-hidden">
+          <div className="text-sm text-gray-500 mb-3 leading-relaxed">ความเข้าใจและเชื่อมโยงความรู้สึกของกันและกัน</div>
+          <div className="h-2 bg-[#2a2d38] rounded-full overflow-hidden">
             <div
-              className="h-full bg-[#00d9ff]"
+              className="h-full bg-[#E07A5F]"
               style={{ width: `${emotionalSync}%` }}
             />
           </div>
         </div>
 
-        <div className="bg-[#0f0f14] border border-[#2a2a3a] rounded-xl p-6">
-          <div className="text-xs text-gray-400 mb-2">CHEMISTRY INDEX</div>
+        <div className="bg-[#1A1D29] border border-[#4E5564] rounded-xl p-6">
+          <div className="text-sm text-gray-400 mb-1">CHEMISTRY INDEX</div>
+          <div className="text-base text-[#B5A593] mb-2">ดัชนีควาวมเคมี</div>
           <div className="text-4xl font-bold mb-2" style={{ color: getScoreColor(chemistryIndex) }}>
             {formatScore(chemistryIndex)}%
           </div>
-          <div className="h-2 bg-[#1a1a24] rounded-full overflow-hidden">
+          <div className="text-sm text-gray-500 mb-3 leading-relaxed">ความดึงดูดและประกายไฟระหว่างกัน</div>
+          <div className="h-2 bg-[#2a2d38] rounded-full overflow-hidden">
             <div
-              className="h-full bg-[#8b5cf6]"
+              className="h-full bg-[#B5A593]"
               style={{ width: `${chemistryIndex}%` }}
             />
           </div>
         </div>
 
-        <div className="bg-[#0f0f14] border border-[#2a2a3a] rounded-xl p-6">
-          <div className="text-xs text-gray-400 mb-2">STABILITY INDEX</div>
+        <div className="bg-[#1A1D29] border border-[#4E5564] rounded-xl p-6">
+          <div className="text-sm text-gray-400 mb-1">STABILITY INDEX</div>
+          <div className="text-base text-[#E07A5F] mb-2">ดัชนีความมั่นคง</div>
           <div className="text-4xl font-bold mb-2" style={{ color: getScoreColor(stabilityIndex) }}>
             {formatScore(stabilityIndex)}%
           </div>
-          <div className="h-2 bg-[#1a1a24] rounded-full overflow-hidden">
+          <div className="text-sm text-gray-500 mb-3 leading-relaxed">ความยั่งยืนและมั่นคงของความสัมพันธ์</div>
+          <div className="h-2 bg-[#2a2d38] rounded-full overflow-hidden">
             <div
-              className="h-full bg-[#00d9ff]"
+              className="h-full bg-[#E07A5F]"
               style={{ width: `${stabilityIndex}%` }}
             />
           </div>
@@ -99,24 +106,24 @@ export const Mode3Results = ({
       </div>
 
       {/* Strengths & Challenges */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
         {/* Strengths */}
-        <div className="bg-[#0f0f14] border border-[#2a2a3a] rounded-xl p-6">
-          <h3 className="text-lg font-semibold text-[#00d9ff] mb-4 flex items-center gap-2">
+        <div className="bg-[#1A1D29] border border-[#4E5564] rounded-xl p-6">
+          <h3 className="text-lg font-semibold text-[#E07A5F] mb-4 flex items-center gap-2">
             <span>✓</span> STRENGTHS
           </h3>
           <div className="space-y-3">
             {strengths.map((strength, idx) => (
               <div key={idx} className="flex items-start gap-3">
-                <div className="w-2 h-2 rounded-full bg-[#00d9ff] mt-2 flex-shrink-0" />
-                <p className="text-sm text-gray-300">{strength}</p>
+                <div className="w-2 h-2 rounded-full bg-[#E07A5F] mt-2 flex-shrink-0" />
+                <p className="text-base text-gray-300 leading-relaxed">{strength}</p>
               </div>
             ))}
           </div>
         </div>
 
         {/* Challenges */}
-        <div className="bg-[#0f0f14] border border-[#2a2a3a] rounded-xl p-6">
+        <div className="bg-[#1A1D29] border border-[#4E5564] rounded-xl p-6">
           <h3 className="text-lg font-semibold text-[#f59e0b] mb-4 flex items-center gap-2">
             <span>⚠</span> CHALLENGES
           </h3>
@@ -124,7 +131,7 @@ export const Mode3Results = ({
             {challenges.map((challenge, idx) => (
               <div key={idx} className="flex items-start gap-3">
                 <div className="w-2 h-2 rounded-full bg-[#f59e0b] mt-2 flex-shrink-0" />
-                <p className="text-sm text-gray-300">{challenge}</p>
+                <p className="text-base text-gray-300 leading-relaxed">{challenge}</p>
               </div>
             ))}
           </div>
@@ -133,42 +140,42 @@ export const Mode3Results = ({
 
       {/* LLM Narrative */}
       {narrative && (
-        <div className="bg-[#0f0f14] border border-[#2a2a3a] rounded-xl p-6">
-          <h3 className="text-lg font-semibold text-[#8b5cf6] mb-4">💫 ดวงดาวบอกอะไร</h3>
+        <div className="bg-[#1A1D29] border border-[#4E5564] rounded-xl p-6">
+          <h3 className="text-lg font-semibold text-[#B5A593] mb-4">💫 ดวงดาวบอกอะไร</h3>
           <div className="space-y-4">
             {narrative.relationship_summary && (
-              <div className="bg-[#1a1a24] rounded-lg p-4 border-l-2 border-[#8b5cf6]">
-                <div className="text-xs text-[#8b5cf6] mb-1">สรุปความสัมพันธ์</div>
-                <p className="text-sm text-gray-300">{narrative.relationship_summary}</p>
+              <div className="bg-[#2a2d38] rounded-lg p-4 border-l-2 border-[#B5A593]">
+                <div className="text-sm text-[#B5A593] mb-2 font-semibold">สรุปความสัมพันธ์</div>
+                <p className="text-base text-gray-300 leading-relaxed">{narrative.relationship_summary}</p>
               </div>
             )}
             {narrative.key_strengths && (
-              <div className="bg-[#1a1a24] rounded-lg p-4 border-l-2 border-[#00d9ff]">
-                <div className="text-xs text-[#00d9ff] mb-1">จุดแข็ง</div>
-                <p className="text-sm text-gray-300">{narrative.key_strengths}</p>
+              <div className="bg-[#2a2d38] rounded-lg p-4 border-l-2 border-[#E07A5F]">
+                <div className="text-sm text-[#E07A5F] mb-2 font-semibold">จุดแข็ง</div>
+                <p className="text-base text-gray-300 leading-relaxed">{narrative.key_strengths}</p>
               </div>
             )}
             {narrative.main_challenges && (
-              <div className="bg-[#1a1a24] rounded-lg p-4 border-l-2 border-[#f59e0b]">
-                <div className="text-xs text-[#f59e0b] mb-1">จุดที่ต้องระวัง</div>
-                <p className="text-sm text-gray-300">{narrative.main_challenges}</p>
+              <div className="bg-[#2a2d38] rounded-lg p-4 border-l-2 border-[#f59e0b]">
+                <div className="text-sm text-[#f59e0b] mb-2 font-semibold">จุดที่ต้องระวัง</div>
+                <p className="text-base text-gray-300 leading-relaxed">{narrative.main_challenges}</p>
               </div>
             )}
             {narrative.conflict_pattern && (
-              <div className="bg-[#1a1a24] rounded-lg p-4 border-l-2 border-[#ef4444]">
-                <div className="text-xs text-[#ef4444] mb-1">รูปแบบความขัดแย้ง</div>
-                <p className="text-sm text-gray-300">{narrative.conflict_pattern}</p>
+              <div className="bg-[#2a2d38] rounded-lg p-4 border-l-2 border-[#ef4444]">
+                <div className="text-sm text-[#ef4444] mb-2 font-semibold">รูปแบบความขัดแย้ง</div>
+                <p className="text-base text-gray-300 leading-relaxed">{narrative.conflict_pattern}</p>
               </div>
             )}
             {narrative.growth_advice && (
-              <div className="bg-[#1a1a24] rounded-lg p-4 border-l-2 border-[#10b981]">
-                <div className="text-xs text-[#10b981] mb-1">คำแนะนำ</div>
-                <p className="text-sm text-gray-300">{narrative.growth_advice}</p>
+              <div className="bg-[#2a2d38] rounded-lg p-4 border-l-2 border-[#10b981]">
+                <div className="text-sm text-[#10b981] mb-2 font-semibold">คำแนะนำ</div>
+                <p className="text-base text-gray-300 leading-relaxed">{narrative.growth_advice}</p>
               </div>
             )}
             {narrative.drama_explanation && (
-              <div className="bg-[#1a1a24] rounded-lg p-4 border-l-2 border-[#f59e0b]">
-                <p className="text-sm text-gray-300 italic">🎭 {narrative.drama_explanation}</p>
+              <div className="bg-[#2a2d38] rounded-lg p-4 border-l-2 border-[#f59e0b]">
+                <p className="text-base text-gray-300 italic leading-relaxed">🎭 {narrative.drama_explanation}</p>
               </div>
             )}
           </div>

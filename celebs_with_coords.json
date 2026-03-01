@@ -1,0 +1,443 @@
+[
+  {
+    "name": "ประยุทธ์ จันทร์โอชา",
+    "birth_date": "1954-03-21",
+    "birth_time": "12:00",
+    "latitude": 14.9749389,
+    "longitude": 102.0981358,
+    "timezone": "UTC",
+    "category": "Politicians"
+  },
+  {
+    "name": "พิธา ลิ้มเจริญรัตน์",
+    "birth_date": "1980-09-05",
+    "birth_time": "12:00",
+    "latitude": 13.7710862,
+    "longitude": 100.5365699,
+    "timezone": "UTC",
+    "category": "Politicians"
+  },
+  {
+    "name": "พี่เต้ มงคลกิตติ์",
+    "birth_date": "1981-09-25",
+    "birth_time": "12:00",
+    "latitude": 16.8157611,
+    "longitude": 100.2634423,
+    "timezone": "UTC",
+    "category": "Politicians"
+  },
+  {
+    "name": "สรยุทธ สุทัศนะจินดา",
+    "birth_date": "1966-05-11",
+    "birth_time": "12:00",
+    "latitude": 13.7186733,
+    "longitude": 100.560278,
+    "timezone": "UTC",
+    "category": "Celebs"
+  },
+  {
+    "name": "หนุ่ม กรรชัย กำเนิดพลอย",
+    "birth_date": "1969-07-18",
+    "birth_time": "12:00",
+    "latitude": 13.7705456,
+    "longitude": 100.5126084,
+    "timezone": "UTC",
+    "category": "Celebs"
+  },
+  {
+    "name": "ก้อย อรัชพร",
+    "birth_date": "1994-04-28",
+    "birth_time": "12:00",
+    "latitude": 13.7710862,
+    "longitude": 100.5365699,
+    "timezone": "UTC",
+    "category": "Celebs"
+  },
+  {
+    "name": "ลุงเอ",
+    "birth_date": "1973-12-25",
+    "birth_time": "12:00",
+    "latitude": 8.497341,
+    "longitude": 99.8360202,
+    "timezone": "UTC",
+    "category": "Celebs"
+  },
+  {
+    "name": "นนท์ ธนนท์",
+    "birth_date": "1996-03-04",
+    "birth_time": "12:00",
+    "latitude": 7.8847901,
+    "longitude": 98.3891503,
+    "timezone": "UTC",
+    "category": "Celebs"
+  },
+  {
+    "name": "เจฟ ซาเตอร์ (Jeff Satur)",
+    "birth_date": "1995-03-06",
+    "birth_time": "12:00",
+    "latitude": 13.7224385,
+    "longitude": 100.4615433,
+    "timezone": "UTC",
+    "category": "Celebs"
+  },
+  {
+    "name": "บิวกิ้น พุฒิพงศ์",
+    "birth_date": "1999-10-08",
+    "birth_time": "12:00",
+    "latitude": 13.7393113,
+    "longitude": 100.5166499,
+    "timezone": "UTC",
+    "category": "Celebs"
+  },
+  {
+    "name": "พีพี กฤษฏ์",
+    "birth_date": "1999-04-30",
+    "birth_time": "12:00",
+    "latitude": 13.7186733,
+    "longitude": 100.560278,
+    "timezone": "UTC",
+    "category": "Celebs"
+  },
+  {
+    "name": "วิน เมธวิน",
+    "birth_date": "1999-02-21",
+    "birth_time": "12:00",
+    "latitude": 13.7524938,
+    "longitude": 100.4935089,
+    "timezone": "UTC",
+    "category": "Celebs"
+  },
+  {
+    "name": "ไบร์ท วชิรวิชญ์",
+    "birth_date": "1997-12-27",
+    "birth_time": "12:00",
+    "latitude": 13.8190071,
+    "longitude": 100.0639917,
+    "timezone": "UTC",
+    "category": "Celebs"
+  },
+  {
+    "name": "เจมีไนน์ นรวิชญ์",
+    "birth_date": "2004-06-13",
+    "birth_time": "12:00",
+    "latitude": 13.7239499,
+    "longitude": 100.5159599,
+    "timezone": "UTC",
+    "category": "Celebs"
+  },
+  {
+    "name": "โฟร์ท ณัฐวรรธน์",
+    "birth_date": "2004-10-18",
+    "birth_time": "12:00",
+    "latitude": 13.7213584,
+    "longitude": 100.5305075,
+    "timezone": "UTC",
+    "category": "Celebs"
+  },
+  {
+    "name": "พีค กองทัพ",
+    "birth_date": "2001-01-26",
+    "birth_time": "12:00",
+    "latitude": 13.7427931,
+    "longitude": 100.5605006,
+    "timezone": "UTC",
+    "category": "Celebs"
+  },
+  {
+    "name": "Lisa Blackpink",
+    "birth_date": "1997-03-27",
+    "birth_time": "12:00",
+    "latitude": 15.2944564,
+    "longitude": 103.2901529,
+    "timezone": "UTC",
+    "category": "Celebs"
+  },
+  {
+    "name": "Rosé Blackpink",
+    "birth_date": "1997-02-11",
+    "birth_time": "12:00",
+    "latitude": -36.852095,
+    "longitude": 174.7631803,
+    "timezone": "UTC",
+    "category": "Celebs"
+  },
+  {
+    "name": "Cha Eun-woo",
+    "birth_date": "1997-03-30",
+    "birth_time": "12:00",
+    "latitude": 37.3615229,
+    "longitude": 126.9349025,
+    "timezone": "UTC",
+    "category": "Celebs"
+  },
+  {
+    "name": "V (BTS)",
+    "birth_date": "1995-12-30",
+    "birth_time": "12:00",
+    "latitude": 35.8716,
+    "longitude": 128.5591,
+    "timezone": "UTC",
+    "category": "Celebs"
+  },
+  {
+    "name": "Jungkook (BTS)",
+    "birth_date": "1997-09-01",
+    "birth_time": "12:00",
+    "latitude": 35.2129876,
+    "longitude": 129.0364611,
+    "timezone": "UTC",
+    "category": "Celebs"
+  },
+  {
+    "name": "Jackson Wang",
+    "birth_date": "1994-03-28",
+    "birth_time": "12:00",
+    "latitude": 22.334635,
+    "longitude": 114.177078,
+    "timezone": "UTC",
+    "category": "Celebs"
+  },
+  {
+    "name": "Byeon Woo-seok",
+    "birth_date": "1991-10-31",
+    "birth_time": "12:00",
+    "latitude": 37.5092719,
+    "longitude": 126.8167149,
+    "timezone": "UTC",
+    "category": "Celebs"
+  },
+  {
+    "name": "Wang Yibo",
+    "birth_date": "1997-08-05",
+    "birth_time": "12:00",
+    "latitude": 34.6611912,
+    "longitude": 112.421734,
+    "timezone": "UTC",
+    "category": "Celebs"
+  },
+  {
+    "name": "Xiao Zhan",
+    "birth_date": "1991-10-05",
+    "birth_time": "12:00",
+    "latitude": 29.4043601,
+    "longitude": 106.5368478,
+    "timezone": "UTC",
+    "category": "Celebs"
+  },
+  {
+    "name": "ธีร์ Only Monday",
+    "birth_date": "2002-01-21",
+    "birth_time": "12:00",
+    "latitude": 13.7239499,
+    "longitude": 100.5159599,
+    "timezone": "UTC",
+    "category": "Influencers"
+  },
+  {
+    "name": "กันต์ จอมพลัง",
+    "birth_date": "1990-06-19",
+    "birth_time": "12:00",
+    "latitude": 13.8030357,
+    "longitude": 100.5502304,
+    "timezone": "UTC",
+    "category": "Influencers"
+  },
+  {
+    "name": "สไปร์ท SPD",
+    "birth_date": "1996-08-14",
+    "birth_time": "12:00",
+    "latitude": 13.6730929,
+    "longitude": 100.6068813,
+    "timezone": "UTC",
+    "category": "Influencers"
+  },
+  {
+    "name": "ซุง Starwin",
+    "birth_date": "1996-12-12",
+    "birth_time": "12:00",
+    "latitude": 13.8084135,
+    "longitude": 100.7326906,
+    "timezone": "UTC",
+    "category": "Influencers"
+  },
+  {
+    "name": "ซ้อการ์ด (Card Kadi)",
+    "birth_date": "1999-01-11",
+    "birth_time": "12:00",
+    "latitude": 13.8190071,
+    "longitude": 100.0639917,
+    "timezone": "UTC",
+    "category": "Influencers"
+  },
+  {
+    "name": "My Mate Nate",
+    "birth_date": "1993-04-10",
+    "birth_time": "12:00",
+    "latitude": 40.6632297,
+    "longitude": -111.9103124,
+    "timezone": "UTC",
+    "category": "Influencers"
+  },
+  {
+    "name": "อูโน่หลานทอง",
+    "birth_date": "1997-05-18",
+    "birth_time": "12:00",
+    "latitude": 13.8036791,
+    "longitude": 100.590874,
+    "timezone": "UTC",
+    "category": "Influencers"
+  },
+  {
+    "name": "พันช์รักแมว",
+    "birth_date": "1998-09-15",
+    "birth_time": "12:00",
+    "latitude": 13.7166019,
+    "longitude": 100.4487061,
+    "timezone": "UTC",
+    "category": "Influencers"
+  },
+  {
+    "name": "คมสันต์ ลี (Flash)",
+    "birth_date": "1991-03-25",
+    "birth_time": "12:00",
+    "latitude": 19.9068867,
+    "longitude": 99.8332739,
+    "timezone": "UTC",
+    "category": "Influencers"
+  },
+  {
+    "name": "คัลแลน",
+    "birth_date": "1990-09-07",
+    "birth_time": "12:00",
+    "latitude": 37.5177,
+    "longitude": 127.0473,
+    "timezone": "UTC",
+    "category": "Influencers"
+  },
+  {
+    "name": "พี่จอง",
+    "birth_date": "1989-04-14",
+    "birth_time": "12:00",
+    "latitude": 37.5345026,
+    "longitude": 126.9943705,
+    "timezone": "UTC",
+    "category": "Influencers"
+  },
+  {
+    "name": "อ.ใหญ่ (ดร. สันติธรรม พรหมอ่อน)",
+    "birth_date": "1978-04-12",
+    "birth_time": "12:00",
+    "latitude": 13.6304099,
+    "longitude": 100.504024,
+    "timezone": "UTC",
+    "category": "Academic"
+  },
+  {
+    "name": "อ. แก๊ส (อ. ราชวิชช์ สโรชวิกสิต)",
+    "birth_date": "1985-11-20",
+    "birth_time": "12:00",
+    "latitude": 13.682131,
+    "longitude": 100.5038952,
+    "timezone": "UTC",
+    "category": "Academic"
+  },
+  {
+    "name": "อ. เค (ดร. ประพงษ์ ปรีชาประพาฬวงศ์)",
+    "birth_date": "1982-03-15",
+    "birth_time": "12:00",
+    "latitude": 13.9120701,
+    "longitude": 100.4974327,
+    "timezone": "UTC",
+    "category": "Academic"
+  },
+  {
+    "name": "อ. สนั่น (อ. สนั่น สระแก้ว)",
+    "birth_date": "1972-08-08",
+    "birth_time": "12:00",
+    "latitude": 14.1033948,
+    "longitude": 100.6703459,
+    "timezone": "UTC",
+    "category": "Academic"
+  },
+  {
+    "name": "อ. โจ้ (ดร. พีรพล ศิริพงศ์วุฒิกร)",
+    "birth_date": "1976-02-28",
+    "birth_time": "12:00",
+    "latitude": 13.6567671,
+    "longitude": 100.4300809,
+    "timezone": "UTC",
+    "category": "Academic"
+  },
+  {
+    "name": "อ. ณัฐชา (ดร. ณัฐชา เดชดำรง)",
+    "birth_date": "1984-06-24",
+    "birth_time": "12:00",
+    "latitude": 13.6797229,
+    "longitude": 100.5435276,
+    "timezone": "UTC",
+    "category": "Academic"
+  },
+  {
+    "name": "อ. วี (ดร.ทวีชัย นันทวิสุทธิวงศ์)",
+    "birth_date": "1988-05-17",
+    "birth_time": "12:00",
+    "latitude": 13.6591779,
+    "longitude": 100.5338323,
+    "timezone": "UTC",
+    "category": "Academic"
+  },
+  {
+    "name": "อ. จุมพล (ดร. จุมพล พลวิชัย)",
+    "birth_date": "1979-12-14",
+    "birth_time": "12:00",
+    "latitude": 13.7526168,
+    "longitude": 100.4933634,
+    "timezone": "UTC",
+    "category": "Academic"
+  },
+  {
+    "name": "อ. ณัฐนาถ (ดร. ณัฐนาถ เหมือนสุวรรณ)",
+    "birth_date": "1981-09-19",
+    "birth_time": "12:00",
+    "latitude": 13.8428962,
+    "longitude": 100.4937886,
+    "timezone": "UTC",
+    "category": "Academic"
+  },
+  {
+    "name": "อ. บิ๊ก (ดร. จาตุรนต์ หาญสมบูรณ์)",
+    "birth_date": "1986-07-07",
+    "birth_time": "12:00",
+    "latitude": 13.1668636,
+    "longitude": 100.9291702,
+    "timezone": "UTC",
+    "category": "Academic"
+  },
+  {
+    "name": "อ. เตย (ดร. ปิยนิตย์ เอื้ออารีมิตร)",
+    "birth_date": "1990-01-25",
+    "birth_time": "12:00",
+    "latitude": 13.7107428,
+    "longitude": 100.4208233,
+    "timezone": "UTC",
+    "category": "Academic"
+  },
+  {
+    "name": "อ. แก้ว (ดร. สัญญ์สิริ ธารประดับ)",
+    "birth_date": "1987-03-11",
+    "birth_time": "12:00",
+    "latitude": 13.5892431,
+    "longitude": 100.1059766,
+    "timezone": "UTC",
+    "category": "Academic"
+  },
+  {
+    "name": "อ. เบิร์ด (ดร.บุญฤทธิ์ จันทร์ไกรวัล)",
+    "birth_date": "1983-12-03",
+    "birth_time": "12:00",
+    "latitude": 13.7774708,
+    "longitude": 100.4553273,
+    "timezone": "UTC",
+    "category": "Academic"
+  }
+]

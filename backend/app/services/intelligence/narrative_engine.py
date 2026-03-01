@@ -94,7 +94,7 @@ Generate ONLY valid JSON in THAI:
             return self._fallback_mode1(scores)
     
     def generate_mode2_narrative(self, celebrity_name: str, similarity: float, 
-                                 user_scores: Dict, celeb_scores: Dict) -> Dict[str, str]:
+                                 user_scores: Dict, celeb_scores: Dict, category: Optional[str] = None) -> Dict[str, str]:
         """
         Generate Mode 2 celebrity match narrative
         
@@ -110,17 +110,27 @@ Generate ONLY valid JSON in THAI:
             return self._fallback_mode2(celebrity_name, similarity)
         
         try:
+            category_context = ""
+            if category:
+                if category.lower() in ['politician', 'นักการเมือง']:
+                    category_context = "\nหมายเหตุ: เป็นนักการเมือง - roast เรื่องนโยบาย คำสัญญา หรือการเมือง"
+                elif category.lower() in ['อาจารย์ kmutt', 'professor', 'teacher']:
+                    category_context = "\nหมายเหตุ: เป็นอาจารย์ KMUTT - แซวเรื่องการบ้านเยอะ สอบยาก ถึงดวงสมพงษ์แต่สอบก็ไม่ปราณี"
+                elif category.lower() in ['celeb', 'celebrity', 'ดารา']:
+                    category_context = "\nหมายเหตุ: เป็นดารา/เซเลบ - roast เรื่องความดัง ฐานะ หน้าตา"
+            
             prompt = f"""You are a Thai fortune teller with a roasting sense of humor. Generate ONE funny roast joke in Thai.
 
 Celebrity: {celebrity_name}
-Match: {similarity}%
+Category: {category or 'Unknown'}
+Match: {similarity}%{category_context}
 
 Generate ONLY valid JSON with ONE roast sentence in THAI:
 {{
   "funny_joke": "ประโยค roast ตลกๆ 1 ประโยค แบบล้อเล่น เช่น 'แมตช์ {int(similarity)}% แต่เค้ารวยกว่า', 'ดาวบอกว่าเข้ากันได้ แต่บัญชีธนาคารบอกว่าไม่', 'เหมาะกันมาก แต่เค้าไม่รู้จักคุณ'"
 }}
 
-สไตล์: roast แซวแรงได้ เล่นเรื่องฐานะ เรื่องหน้าตา เหมือนเราที่เป็นพื้นบ้านชนชั้นล่างไปคู่กับคนดังระดับโลกที่ดีกว่าเราเป็นพันเท่า ดวงบอกคู่แต่ได้แค่เพ้อ
+สไตล์: roast แซวแรงได้
 ห้ามซ้ำกัน ให้แต่ละคนต่างกัน"""
 
             response = self.model.generate_content(prompt)

@@ -184,7 +184,8 @@ class ServiceOrchestrator:
                 figure['name'],
                 score,
                 vector_data['feature_dict'],
-                celeb_vector_dict
+                celeb_vector_dict,
+                figure.get('occupation')  # Pass category/occupation
             )
             
             formatted_matches.append({
