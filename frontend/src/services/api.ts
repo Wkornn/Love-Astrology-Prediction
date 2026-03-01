@@ -65,10 +65,16 @@ interface StandardResponse<T> {
 
 export interface Mode1Data {
   love_profile: {
-    romantic_readiness: number;
-    passion_drive: number;
-    emotional_depth: number;
-    commitment_capacity: number;
+    love_readiness?: number;
+    emotional_maturity?: number;
+    relationship_focus?: number;
+    passion_level?: number;
+    stability_potential?: number;
+    // Legacy field names for backward compatibility
+    romantic_readiness?: number;
+    passion_drive?: number;
+    emotional_depth?: number;
+    commitment_capacity?: number;
   };
   personality_vector: {
     venus_mars_harmony: number;
