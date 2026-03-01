@@ -1,3 +1,5 @@
+import { CosineAlignmentVisualization } from '../visualizations/CosineAlignmentVisualization';
+
 interface CelebrityMatch {
   name: string;
   occupation?: string;
@@ -19,6 +21,18 @@ export const Mode2Results = ({ matches, userVector, totalCelebrities }: Mode2Res
 
   return (
     <div className="space-y-6">
+      {/* Cosine Alignment Visualization */}
+      {matches.length > 0 && (
+        <CosineAlignmentVisualization
+          matches={matches.map(m => ({
+            name: m.name,
+            occupation: m.occupation,
+            similarityScore: m.similarity_score / 100,
+            matchReason: m.match_reason,
+            funnyJoke: m.narrative?.funny_joke
+          }))}
+        />
+      )}
       {/* Stats Header */}
       <div className="bg-[#1A1D29] border border-[#4E5564] rounded-xl p-6 text-center">
         <div className="text-sm text-gray-400 mb-2">ANALYZED AGAINST</div>
