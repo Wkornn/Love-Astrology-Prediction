@@ -54,7 +54,7 @@ const Mode2Page = () => {
       <button
         onClick={handleSubmit}
         disabled={loading}
-        className="w-full mb-8 bg-[#B5A593] hover:bg-[#9d8a78] disabled:bg-gray-600 disabled:cursor-not-allowed text-white font-semibold py-3 px-6 rounded-lg transition-colors"
+        className="w-full mb-8 bg-[#B5A593] hover:bg-[#9d8a78] disabled:bg-gray-600 disabled:cursor-not-allowed text-black font-semibold py-3 px-6 rounded-lg transition-colors"
       >
         {loading ? 'Matching...' : 'Find Celebrity Matches'}
       </button>
