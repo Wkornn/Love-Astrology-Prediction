@@ -9,6 +9,7 @@ from ..services.vector.feature_vector_builder import FeatureVectorBuilder
 from ..services.vector.similarity_engine import SimilarityEngine
 from ..services.compatibility.compatibility_aggregator import CompatibilityAggregator
 from ..services.intelligence.humor_intelligence import HumorIntelligence
+from ..services.intelligence.narrative_engine import NarrativeEngine
 from ..database.public_figure_db import PublicFigureDatabase
 
 logger = logging.getLogger(__name__)
@@ -27,6 +28,7 @@ class ServiceOrchestrator:
         self.similarity_engine = SimilarityEngine()
         self.compatibility_aggregator = CompatibilityAggregator()
         self.humor_intelligence = HumorIntelligence()
+        self.narrative_engine = NarrativeEngine()
         self.figure_db = PublicFigureDatabase(db_path)
     
     def _calculate_chart_and_vector(self, birth_data: Dict) -> Tuple[Dict, Dict]:
@@ -125,11 +127,18 @@ class ServiceOrchestrator:
             vector_data['feature_dict']
         )
         
+        # Generate LLM narrative
+        narrative = self.narrative_engine.generate_mode1_narrative({
+            **love_profile,
+            **vector_data['feature_dict']
+        })
+        
         result = {
             'success': True,
             'mode': 'mode1',
             'love_profile': love_profile,
             'personality_vector': vector_data['feature_dict'],
+            'narrative': narrative,
             'diagnostics': diagnostics if diagnostics else {}
         }
         
@@ -169,6 +178,16 @@ class ServiceOrchestrator:
         # Format matches
         formatted_matches = []
         for figure, score in matches:
+            # Generate narrative for this match
+            celeb_vector_dict = dict(zip(self.vector_builder.FEATURE_LABELS, figure.get('feature_vector', [])))
+            narrative = self.narrative_engine.generate_mode2_narrative(
+                figure['name'],
+                score,
+                vector_data['feature_dict'],
+                celeb_vector_dict,
+                figure.get('occupation')  # Pass category/occupation
+            )
+            
             formatted_matches.append({
                 'name': figure['name'],
                 'occupation': figure.get('occupation'),
@@ -176,7 +195,8 @@ class ServiceOrchestrator:
                 'match_reason': self._generate_match_reason(
                     vector_data['feature_dict'],
                     figure.get('feature_vector', [])
-                )
+                ),
+                'narrative': narrative
             })
         
         stats = self.figure_db.get_stats()
@@ -238,6 +258,16 @@ class ServiceOrchestrator:
              vector2_data['feature_dict']['moon_stability']) / 2
         )
         
+        # Generate LLM narrative
+        narrative = self.narrative_engine.generate_mode3_narrative({
+            'overall_score': compatibility['overall_score'],
+            'emotional_sync': compatibility['emotional_sync'],
+            'chemistry_index': compatibility['chemistry_index'],
+            'stability_index': compatibility['stability_index'],
+            'hard_aspect_density': (vector1_data['feature_dict']['hard_aspect_density'] + 
+                                   vector2_data['feature_dict']['hard_aspect_density']) / 2
+        })
+        
         result = {
             'success': True,
             'mode': 'mode3',
@@ -249,6 +279,7 @@ class ServiceOrchestrator:
             'stability_index': compatibility['stability_index'],
             'strengths': strengths,
             'challenges': challenges,
+            'narrative': narrative,
             'diagnostics': diagnostics if diagnostics else {}
         }
         

@@ -47,6 +47,7 @@ async def mode1_love_reading(request: Mode1Request):
             data=Mode1Data(
                 love_profile=result['love_profile'],
                 personality_vector=result['personality_vector'],
+                narrative=result.get('narrative'),
                 debug=result.get('debug')
             ),
             diagnostics=format_diagnostics(result.get('diagnostics', {})),
@@ -130,7 +131,8 @@ async def mode3_couple_match(request: Mode3Request):
                 chemistry_index=result['chemistry_index'],
                 stability_index=result['stability_index'],
                 strengths=result['strengths'],
-                challenges=result['challenges']
+                challenges=result['challenges'],
+                narrative=result.get('narrative')
             ),
             diagnostics=format_diagnostics(result.get('diagnostics', {})),
             timestamp=datetime.utcnow().isoformat() + 'Z'

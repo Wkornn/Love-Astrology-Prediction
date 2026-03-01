@@ -26,7 +26,7 @@ export const ResultDashboard = ({
     switch (severity) {
       case 'CRITICAL': return '#ef4444';
       case 'WARNING': return '#f59e0b';
-      case 'INFO': return '#00d9ff';
+      case 'INFO': return '#B5A593';
       default: return '#6b7280';
     }
   };
@@ -37,7 +37,7 @@ export const ResultDashboard = ({
       {compatibilityScore !== undefined && (
         <div className="bg-[#0f0f14] border border-[#2a2a3a] rounded-xl p-8 text-center">
           <div className="text-sm text-gray-400 mb-2">COMPATIBILITY SCORE</div>
-          <div className="text-7xl font-bold text-[#8b5cf6] mb-2">
+          <div className="text-7xl font-bold text-[#B5A593] mb-2">
             {compatibilityScore}%
           </div>
           <div className="text-sm text-gray-500">{systemStatus}</div>
@@ -46,23 +46,23 @@ export const ResultDashboard = ({
 
       {/* Metrics Grid */}
       {(emotionalSync !== undefined || chemistryIndex !== undefined || stabilityIndex !== undefined) && (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-4">
           {emotionalSync !== undefined && (
             <div className="bg-[#0f0f14] border border-[#2a2a3a] rounded-xl p-6">
               <div className="text-xs text-gray-400 mb-2">EMOTIONAL SYNC</div>
-              <div className="text-3xl font-bold text-[#00d9ff]">{emotionalSync}%</div>
+              <div className="text-3xl font-bold text-[#E07A5F]">{emotionalSync}%</div>
             </div>
           )}
           {chemistryIndex !== undefined && (
             <div className="bg-[#0f0f14] border border-[#2a2a3a] rounded-xl p-6">
               <div className="text-xs text-gray-400 mb-2">CHEMISTRY INDEX</div>
-              <div className="text-3xl font-bold text-[#8b5cf6]">{chemistryIndex}%</div>
+              <div className="text-3xl font-bold text-[#B5A593]">{chemistryIndex}%</div>
             </div>
           )}
           {stabilityIndex !== undefined && (
             <div className="bg-[#0f0f14] border border-[#2a2a3a] rounded-xl p-6">
               <div className="text-xs text-gray-400 mb-2">STABILITY INDEX</div>
-              <div className="text-3xl font-bold text-[#00d9ff]">{stabilityIndex}%</div>
+              <div className="text-3xl font-bold text-[#E07A5F]">{stabilityIndex}%</div>
             </div>
           )}
         </div>

@@ -22,6 +22,7 @@ class Mode1Data(BaseModel):
     """Mode 1 data section"""
     love_profile: Dict[str, float]
     personality_vector: Dict[str, float]
+    narrative: Optional[Dict[str, str]] = None
     debug: Optional[Dict[str, Any]] = None
 
 class CelebrityMatch(BaseModel):
@@ -30,6 +31,7 @@ class CelebrityMatch(BaseModel):
     occupation: Optional[str]
     similarity_score: float
     match_reason: str
+    narrative: Optional[Dict[str, str]] = None
 
 class Mode2Data(BaseModel):
     """Mode 2 data section"""
@@ -47,6 +49,7 @@ class Mode3Data(BaseModel):
     stability_index: float
     strengths: List[str]
     challenges: List[str]
+    narrative: Optional[Dict[str, str]] = None
 
 class StandardResponse(BaseModel):
     """Standardized response format for all modes"""

@@ -3,10 +3,6 @@ import type { BirthData } from '../components/forms/BirthDataForm';
 export const validateBirthData = (data: BirthData): Partial<Record<keyof BirthData, string>> => {
   const errors: Partial<Record<keyof BirthData, string>> = {};
 
-  if (!data.name.trim()) {
-    errors.name = 'Name is required';
-  }
-
   if (!data.date) {
     errors.date = 'Date is required';
   }
