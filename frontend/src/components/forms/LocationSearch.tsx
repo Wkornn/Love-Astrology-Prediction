@@ -14,6 +14,7 @@ export const LocationSearch = ({ onSelect }: LocationSearchProps) => {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState<LocationResult[]>([]);
   const [loading, setLoading] = useState(false);
+  const [selectedLocation, setSelectedLocation] = useState<string>('');
 
   const searchLocation = async () => {
     if (!query.trim()) return;
@@ -33,37 +34,55 @@ export const LocationSearch = ({ onSelect }: LocationSearchProps) => {
     }
   };
 
+  const clearSelection = () => {
+    setSelectedLocation('');
+    setQuery('');
+    onSelect(0, 0, '');
+  };
+
   return (
     <div className="space-y-2">
       <div className="flex gap-2">
-        <input
-          type="text"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          onKeyPress={(e) => e.key === 'Enter' && searchLocation()}
-          placeholder="Search: Bangkok, New York, Tokyo..."
-          className="flex-1 bg-[#1a1a24] border border-[#2a2a3a] rounded-lg px-4 py-2 text-white"
-        />
+        <div className="flex-1 relative">
+          <input
+            type="text"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            onKeyPress={(e) => e.key === 'Enter' && searchLocation()}
+            placeholder={selectedLocation || "Search: Bangkok, New York, Tokyo..."}
+            className="w-full bg-[#2a2d38] border border-[#4E5564] rounded-lg px-4 py-2 pr-10 text-white"
+          />
+          {selectedLocation && (
+            <button
+              onClick={clearSelection}
+              className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white"
+              type="button"
+            >
+              ✕
+            </button>
+          )}
+        </div>
         <button
           onClick={searchLocation}
           disabled={loading}
-          className="bg-[#8b5cf6] hover:bg-[#7c3aed] disabled:bg-gray-600 text-white px-6 py-2 rounded-lg"
+          className="bg-[#B5A593] hover:bg-[#9d8a78] disabled:bg-gray-600 text-white px-6 py-2 rounded-lg"
         >
           {loading ? '...' : 'Search'}
         </button>
       </div>
 
       {results.length > 0 && (
-        <div className="bg-[#1a1a24] border border-[#2a2a3a] rounded-lg max-h-60 overflow-y-auto">
+        <div className="bg-[#2a2d38] border border-[#4E5564] rounded-lg max-h-60 overflow-y-auto">
           {results.map((result, idx) => (
             <button
               key={idx}
               onClick={() => {
                 onSelect(parseFloat(result.lat), parseFloat(result.lon), result.display_name);
+                setSelectedLocation(result.display_name);
                 setResults([]);
                 setQuery('');
               }}
-              className="w-full text-left px-4 py-3 hover:bg-[#2a2a3a] border-b border-[#2a2a3a] last:border-b-0"
+              className="w-full text-left px-4 py-3 hover:bg-[#4E5564] border-b border-[#4E5564] last:border-b-0"
             >
               <div className="text-sm text-white">{result.display_name}</div>
               <div className="text-xs text-gray-400 mt-1">

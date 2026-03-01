@@ -53,7 +53,7 @@ const Mode1Page = () => {
       <button
         onClick={handleSubmit}
         disabled={loading}
-        className="w-full mb-8 bg-[#8b5cf6] hover:bg-[#7c3aed] disabled:bg-gray-600 disabled:cursor-not-allowed text-white font-semibold py-3 px-6 rounded-lg transition-colors"
+        className="w-full mb-8 bg-[#B5A593] hover:bg-[#9d8a78] disabled:bg-gray-600 disabled:cursor-not-allowed text-white font-semibold py-3 px-6 rounded-lg transition-colors"
       >
         {loading ? 'Analyzing...' : 'Generate Love Reading'}
       </button>

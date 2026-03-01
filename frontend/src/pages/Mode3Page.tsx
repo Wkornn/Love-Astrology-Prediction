@@ -65,7 +65,7 @@ const Mode3Page = () => {
       </div>
 
       <div className="mb-8">
-        <h3 className="text-lg font-semibold text-[#8b5cf6] mb-4">Person 2 Birth Data</h3>
+        <h3 className="text-lg font-semibold text-[#B5A593] mb-4">Person 2 Birth Data</h3>
         <BirthDataForm data={person2} onChange={setPerson2} errors={errors2} />
       </div>
 
@@ -78,7 +78,7 @@ const Mode3Page = () => {
       <button
         onClick={handleSubmit}
         disabled={loading}
-        className="w-full mb-8 bg-[#8b5cf6] hover:bg-[#7c3aed] disabled:bg-gray-600 disabled:cursor-not-allowed text-white font-semibold py-3 px-6 rounded-lg transition-colors"
+        className="w-full mb-8 bg-[#B5A593] hover:bg-[#9d8a78] disabled:bg-gray-600 disabled:cursor-not-allowed text-white font-semibold py-3 px-6 rounded-lg transition-colors"
       >
         {loading ? 'Analyzing...' : 'Analyze Compatibility'}
       </button>

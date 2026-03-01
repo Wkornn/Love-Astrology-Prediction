@@ -5,7 +5,7 @@ const Home = () => {
     <div className="max-w-6xl mx-auto">
       {/* Header Section */}
       <div className="text-center mb-16">
-        <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-[#8b5cf6] to-[#00d9ff] bg-clip-text text-transparent">
+        <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-[#B5A593] to-[#E07A5F] bg-clip-text text-transparent">
           Love Debugging Lab
         </h1>
         <p className="text-[#a0a6b0] text-xl mb-2">
@@ -23,15 +23,15 @@ const Home = () => {
           to="/mode1" 
           className="group block transform transition-all duration-300 hover:scale-105"
         >
-          <div className="bg-[#1a1a24] border-2 border-[#2a2a3a] rounded-xl p-8 h-full hover:border-[#8b5cf6] hover:shadow-[0_0_30px_rgba(139,92,246,0.3)] transition-all duration-300">
+          <div className="bg-[#2a2d38] border-2 border-[#4E5564] rounded-xl p-8 h-full hover:border-[#B5A593] hover:shadow-[0_0_30px_rgba(139,92,246,0.3)] transition-all duration-300">
             <div className="flex items-center justify-between mb-6">
               <div className="text-5xl">💜</div>
-              <span className="text-xs font-mono text-[#6a7080] bg-[#0f0f14] px-3 py-1 rounded">
+              <span className="text-xs font-mono text-[#6a7080] bg-[#1A1D29] px-3 py-1 rounded">
                 MODE_01
               </span>
             </div>
             
-            <h3 className="text-2xl font-bold mb-3 text-[#e0e6ed] group-hover:text-[#8b5cf6] transition-colors">
+            <h3 className="text-2xl font-bold mb-3 text-[#e0e6ed] group-hover:text-[#B5A593] transition-colors">
               Love Reading
             </h3>
             
@@ -39,7 +39,7 @@ const Home = () => {
               Single-person natal chart analysis. Generate comprehensive love personality profile and relationship readiness assessment.
             </p>
             
-            <div className="flex items-center text-[#8b5cf6] text-sm font-mono">
+            <div className="flex items-center text-[#B5A593] text-sm font-mono">
               <span>Initialize Analysis</span>
               <span className="ml-2 group-hover:translate-x-1 transition-transform">→</span>
             </div>
@@ -51,15 +51,15 @@ const Home = () => {
           to="/mode2" 
           className="group block transform transition-all duration-300 hover:scale-105"
         >
-          <div className="bg-[#1a1a24] border-2 border-[#2a2a3a] rounded-xl p-8 h-full hover:border-[#00d9ff] hover:shadow-[0_0_30px_rgba(0,217,255,0.3)] transition-all duration-300">
+          <div className="bg-[#2a2d38] border-2 border-[#4E5564] rounded-xl p-8 h-full hover:border-[#E07A5F] hover:shadow-[0_0_30px_rgba(0,217,255,0.3)] transition-all duration-300">
             <div className="flex items-center justify-between mb-6">
               <div className="text-5xl">⭐</div>
-              <span className="text-xs font-mono text-[#6a7080] bg-[#0f0f14] px-3 py-1 rounded">
+              <span className="text-xs font-mono text-[#6a7080] bg-[#1A1D29] px-3 py-1 rounded">
                 MODE_02
               </span>
             </div>
             
-            <h3 className="text-2xl font-bold mb-3 text-[#e0e6ed] group-hover:text-[#00d9ff] transition-colors">
+            <h3 className="text-2xl font-bold mb-3 text-[#e0e6ed] group-hover:text-[#E07A5F] transition-colors">
               Celebrity Match
             </h3>
             
@@ -67,7 +67,7 @@ const Home = () => {
               Compare your chart against public figure database. Discover top compatibility matches with celebrities and influencers.
             </p>
             
-            <div className="flex items-center text-[#00d9ff] text-sm font-mono">
+            <div className="flex items-center text-[#E07A5F] text-sm font-mono">
               <span>Initialize Analysis</span>
               <span className="ml-2 group-hover:translate-x-1 transition-transform">→</span>
             </div>
@@ -79,15 +79,15 @@ const Home = () => {
           to="/mode3" 
           className="group block transform transition-all duration-300 hover:scale-105"
         >
-          <div className="bg-[#1a1a24] border-2 border-[#2a2a3a] rounded-xl p-8 h-full hover:border-[#8b5cf6] hover:shadow-[0_0_30px_rgba(139,92,246,0.3)] transition-all duration-300">
+          <div className="bg-[#2a2d38] border-2 border-[#4E5564] rounded-xl p-8 h-full hover:border-[#B5A593] hover:shadow-[0_0_30px_rgba(139,92,246,0.3)] transition-all duration-300">
             <div className="flex items-center justify-between mb-6">
               <div className="text-5xl">💕</div>
-              <span className="text-xs font-mono text-[#6a7080] bg-[#0f0f14] px-3 py-1 rounded">
+              <span className="text-xs font-mono text-[#6a7080] bg-[#1A1D29] px-3 py-1 rounded">
                 MODE_03
               </span>
             </div>
             
-            <h3 className="text-2xl font-bold mb-3 text-[#e0e6ed] group-hover:text-[#8b5cf6] transition-colors">
+            <h3 className="text-2xl font-bold mb-3 text-[#e0e6ed] group-hover:text-[#B5A593] transition-colors">
               Couple Compatibility
             </h3>
             
@@ -95,7 +95,7 @@ const Home = () => {
               Two-person compatibility analysis. Calculate relationship scores, identify strengths, and assess potential challenges.
             </p>
             
-            <div className="flex items-center text-[#8b5cf6] text-sm font-mono">
+            <div className="flex items-center text-[#B5A593] text-sm font-mono">
               <span>Initialize Analysis</span>
               <span className="ml-2 group-hover:translate-x-1 transition-transform">→</span>
             </div>
@@ -104,7 +104,7 @@ const Home = () => {
       </div>
 
       {/* Info Section */}
-      <div className="bg-[#1a1a24] border border-[#2a2a3a] rounded-xl p-6">
+      <div className="bg-[#2a2d38] border border-[#4E5564] rounded-xl p-6">
         <div className="flex items-start space-x-4">
           <div className="text-3xl flex-shrink-0">ℹ️</div>
           <div>

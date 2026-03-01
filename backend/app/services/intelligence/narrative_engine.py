@@ -94,7 +94,7 @@ Generate ONLY valid JSON in THAI:
             return self._fallback_mode1(scores)
     
     def generate_mode2_narrative(self, celebrity_name: str, similarity: float, 
-                                 user_scores: Dict, celeb_scores: Dict) -> Dict[str, str]:
+                                 user_scores: Dict, celeb_scores: Dict, celebrity_category: str = None) -> Dict[str, str]:
         """
         Generate Mode 2 celebrity match narrative
         
@@ -110,9 +110,10 @@ Generate ONLY valid JSON in THAI:
             return self._fallback_mode2(celebrity_name, similarity)
         
         try:
+            category_text = f" ({celebrity_category})" if celebrity_category else ""
             prompt = f"""You are a Thai fortune teller with a roasting sense of humor. Generate ONE funny roast joke in Thai.
 
-Celebrity: {celebrity_name}
+Celebrity: {celebrity_name}{category_text}
 Match: {similarity}%
 
 Generate ONLY valid JSON with ONE roast sentence in THAI:
@@ -121,6 +122,7 @@ Generate ONLY valid JSON with ONE roast sentence in THAI:
 }}
 
 สไตล์: roast แซวแรงได้ เล่นเรื่องฐานะ เรื่องหน้าตา เหมือนเราที่เป็นพื้นบ้านชนชั้นล่างไปคู่กับคนดังระดับโลกที่ดีกว่าเราเป็นพันเท่า ดวงบอกคู่แต่ได้แค่เพ้อ
+ถ้ามี category ให้ใช้ในมุขด้วย เช่น Politicians = ล้อการเมือง, Influencers = ล้อโซเชียล, Academic = ล้ออาจารย์, Celebs = ล้อดารา
 ห้ามซ้ำกัน ให้แต่ละคนต่างกัน"""
 
             response = self.model.generate_content(prompt)
