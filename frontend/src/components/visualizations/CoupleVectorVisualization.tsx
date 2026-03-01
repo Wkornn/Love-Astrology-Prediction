@@ -56,7 +56,7 @@ export const CoupleVectorVisualization = ({
 
   if (vectorSimilarity === undefined) {
     return (
-      <div className="bg-[#1A1D29] border border-[#4E5564] rounded-xl p-6 text-center">
+      <div className="bg-[#1A1D29]/40 backdrop-blur-md border border-[#4E5564] rounded-xl p-6 text-center">
         <p className="text-cyan-400 text-sm">Waiting for compatibility analysis...</p>
       </div>
     );
@@ -68,7 +68,7 @@ export const CoupleVectorVisualization = ({
   const person2VectorY = -vectorLength * Math.sin(currentAngle * Math.PI / 180);
 
   return (
-    <div className="bg-[#1A1D29] border border-[#4E5564] rounded-xl p-6 relative overflow-hidden">
+    <div className="bg-[#1A1D29]/40 backdrop-blur-md border border-[#4E5564] rounded-xl p-6 relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-radial from-pink-500/5 to-transparent pointer-events-none" />
       
       <h3 className="text-lg xl:text-xl font-semibold text-[#B5A593] text-center mb-4">
@@ -181,7 +181,7 @@ export const CoupleVectorVisualization = ({
             <h4 className="text-xl font-bold text-[#E07A5F] mb-4 text-center">Vector Compatibility</h4>
             
             {/* Math info */}
-            <div className="bg-[#1A1D29] rounded-lg p-4 mb-4 font-mono text-sm">
+            <div className="bg-[#1A1D29]/40 backdrop-blur-md rounded-lg p-4 mb-4 font-mono text-sm">
               <p className="text-gray-400">cos(θ) = <span className="text-[#E07A5F] font-bold">{(vectorSimilarity / 100).toFixed(3)}</span></p>
               <p className="text-gray-400">θ = <span className="text-[#B5A593] font-bold">{finalAngle.toFixed(1)}°</span></p>
             </div>
@@ -195,7 +195,7 @@ export const CoupleVectorVisualization = ({
             </div>
 
             {/* Interpretation */}
-            <div className="mt-4 bg-[#1A1D29] rounded-lg p-3 border-l-2 border-[#E07A5F]">
+            <div className="mt-4 bg-[#1A1D29]/40 backdrop-blur-md rounded-lg p-3 border-l-2 border-[#E07A5F]">
               <p className="text-sm text-gray-300">
                 {vectorSimilarity >= 80 ? '🎯 Highly aligned personalities - Strong compatibility' :
                  vectorSimilarity >= 60 ? '✨ Good alignment - Compatible traits' :

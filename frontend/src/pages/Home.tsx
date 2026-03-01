@@ -23,7 +23,7 @@ const Home = () => {
           <div className="bg-[#2a2d38] border-2 border-[#4E5564] rounded-xl p-8 h-full hover:border-[#B5A593] hover:shadow-[0_0_30px_rgba(139,92,246,0.3)] transition-all duration-300">
             <div className="flex items-center justify-between mb-6">
               <div className="text-5xl">💜</div>
-              <span className="text-xs font-mono text-[#6a7080] bg-[#1A1D29] px-3 py-1 rounded">
+              <span className="text-xs font-mono text-[#6a7080] bg-[#1A1D29]/40 backdrop-blur-md px-3 py-1 rounded">
                 MODE_01
               </span>
             </div>
@@ -51,7 +51,7 @@ const Home = () => {
           <div className="bg-[#2a2d38] border-2 border-[#4E5564] rounded-xl p-8 h-full hover:border-[#E07A5F] hover:shadow-[0_0_30px_rgba(0,217,255,0.3)] transition-all duration-300">
             <div className="flex items-center justify-between mb-6">
               <div className="text-5xl">⭐</div>
-              <span className="text-xs font-mono text-[#6a7080] bg-[#1A1D29] px-3 py-1 rounded">
+              <span className="text-xs font-mono text-[#6a7080] bg-[#1A1D29]/40 backdrop-blur-md px-3 py-1 rounded">
                 MODE_02
               </span>
             </div>
@@ -79,7 +79,7 @@ const Home = () => {
           <div className="bg-[#2a2d38] border-2 border-[#4E5564] rounded-xl p-8 h-full hover:border-[#B5A593] hover:shadow-[0_0_30px_rgba(139,92,246,0.3)] transition-all duration-300">
             <div className="flex items-center justify-between mb-6">
               <div className="text-5xl">💕</div>
-              <span className="text-xs font-mono text-[#6a7080] bg-[#1A1D29] px-3 py-1 rounded">
+              <span className="text-xs font-mono text-[#6a7080] bg-[#1A1D29]/40 backdrop-blur-md px-3 py-1 rounded">
                 MODE_03
               </span>
             </div>

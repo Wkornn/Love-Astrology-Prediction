@@ -34,14 +34,14 @@ export const Mode2Results = ({ matches, userVector, totalCelebrities }: Mode2Res
         />
       )}
       {/* Stats Header */}
-      <div className="bg-[#1A1D29] border border-[#4E5564] rounded-xl p-6 text-center">
+      <div className="bg-[#1A1D29]/40 backdrop-blur-md border border-[#4E5564] rounded-xl p-6 text-center">
         <div className="text-sm text-gray-400 mb-2">ANALYZED AGAINST</div>
         <div className="text-4xl font-bold text-[#E07A5F] mb-1">{totalCelebrities}</div>
         <div className="text-sm text-gray-500">Public Figures</div>
       </div>
 
       {/* Top Matches */}
-      <div className="bg-[#1A1D29] border border-[#4E5564] rounded-xl p-6">
+      <div className="bg-[#1A1D29]/40 backdrop-blur-md border border-[#4E5564] rounded-xl p-6">
         <h3 className="text-lg font-semibold text-[#B5A593] mb-4">TOP CELEBRITY MATCHES</h3>
         <div className="space-y-4">
           {matches.map((match, idx) => (
@@ -68,7 +68,7 @@ export const Mode2Results = ({ matches, userVector, totalCelebrities }: Mode2Res
                   <div className="text-xs text-gray-400">MATCH</div>
                 </div>
               </div>
-              <div className="bg-[#1A1D29] rounded px-3 py-2 border-l-2 border-[#E07A5F]">
+              <div className="bg-[#1A1D29]/40 backdrop-blur-md rounded px-3 py-2 border-l-2 border-[#E07A5F]">
                 <p className="text-base text-gray-300 leading-relaxed">{match.match_reason}</p>
               </div>
               
@@ -84,7 +84,7 @@ export const Mode2Results = ({ matches, userVector, totalCelebrities }: Mode2Res
       </div>
 
       {/* Your Profile Summary */}
-      <div className="bg-[#1A1D29] border border-[#4E5564] rounded-xl p-6">
+      <div className="bg-[#1A1D29]/40 backdrop-blur-md border border-[#4E5564] rounded-xl p-6">
         <h3 className="text-lg font-semibold text-[#B5A593] mb-4">YOUR PROFILE SUMMARY</h3>
         <div className="grid grid-cols-2 xl:grid-cols-4 gap-3">
           {Object.entries(userVector).slice(0, 8).map(([key, value]) => (

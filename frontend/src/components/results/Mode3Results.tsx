@@ -48,7 +48,7 @@ export const Mode3Results = ({
       />
 
       {/* Overall Score */}
-      <div className="bg-[#1A1D29] border border-[#4E5564] rounded-xl p-8 text-center">
+      <div className="bg-[#1A1D29]/40 backdrop-blur-md border border-[#4E5564] rounded-xl p-8 text-center">
         <div className="text-base text-gray-400 mb-2">OVERALL COMPATIBILITY</div>
         <div className="text-sm text-[#B5A593] mb-3">ความเข้ากันได้โดยรวม</div>
         <div className="text-7xl font-bold mb-2" style={{ color: getScoreColor(overallScore) }}>
@@ -68,7 +68,7 @@ export const Mode3Results = ({
 
       {/* Compatibility Indices */}
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-4">
-        <div className="bg-[#1A1D29] border border-[#4E5564] rounded-xl p-6">
+        <div className="bg-[#1A1D29]/40 backdrop-blur-md border border-[#4E5564] rounded-xl p-6">
           <div className="text-sm text-gray-400 mb-1">EMOTIONAL SYNC</div>
           <div className="text-base text-[#E07A5F] mb-2">ความสอดคล้องทางอารมณ์</div>
           <div className="text-4xl font-bold mb-2" style={{ color: getScoreColor(emotionalSync) }}>
@@ -83,7 +83,7 @@ export const Mode3Results = ({
           </div>
         </div>
 
-        <div className="bg-[#1A1D29] border border-[#4E5564] rounded-xl p-6">
+        <div className="bg-[#1A1D29]/40 backdrop-blur-md border border-[#4E5564] rounded-xl p-6">
           <div className="text-sm text-gray-400 mb-1">CHEMISTRY INDEX</div>
           <div className="text-base text-[#B5A593] mb-2">ดัชนีควาวมเคมี</div>
           <div className="text-4xl font-bold mb-2" style={{ color: getScoreColor(chemistryIndex) }}>
@@ -98,7 +98,7 @@ export const Mode3Results = ({
           </div>
         </div>
 
-        <div className="bg-[#1A1D29] border border-[#4E5564] rounded-xl p-6">
+        <div className="bg-[#1A1D29]/40 backdrop-blur-md border border-[#4E5564] rounded-xl p-6">
           <div className="text-sm text-gray-400 mb-1">STABILITY INDEX</div>
           <div className="text-base text-[#E07A5F] mb-2">ดัชนีความมั่นคง</div>
           <div className="text-4xl font-bold mb-2" style={{ color: getScoreColor(stabilityIndex) }}>
@@ -117,7 +117,7 @@ export const Mode3Results = ({
       {/* Strengths & Challenges */}
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
         {/* Strengths */}
-        <div className="bg-[#1A1D29] border border-[#4E5564] rounded-xl p-6">
+        <div className="bg-[#1A1D29]/40 backdrop-blur-md border border-[#4E5564] rounded-xl p-6">
           <h3 className="text-lg font-semibold text-[#E07A5F] mb-4 flex items-center gap-2">
             <span>✓</span> STRENGTHS
           </h3>
@@ -132,7 +132,7 @@ export const Mode3Results = ({
         </div>
 
         {/* Challenges */}
-        <div className="bg-[#1A1D29] border border-[#4E5564] rounded-xl p-6">
+        <div className="bg-[#1A1D29]/40 backdrop-blur-md border border-[#4E5564] rounded-xl p-6">
           <h3 className="text-lg font-semibold text-[#f59e0b] mb-4 flex items-center gap-2">
             <span>⚠</span> CHALLENGES
           </h3>
@@ -149,7 +149,7 @@ export const Mode3Results = ({
 
       {/* LLM Narrative */}
       {narrative && (
-        <div className="bg-[#1A1D29] border border-[#4E5564] rounded-xl p-6">
+        <div className="bg-[#1A1D29]/40 backdrop-blur-md border border-[#4E5564] rounded-xl p-6">
           <h3 className="text-lg font-semibold text-[#B5A593] mb-4">💫 ดวงดาวบอกอะไร</h3>
           <div className="space-y-4">
             {narrative.relationship_summary && (

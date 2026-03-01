@@ -52,14 +52,14 @@ export const LoveVector3D = ({ emotionalIntensity, passionIndex, conflictReactiv
 
   if (emotionalIntensity === undefined || passionIndex === undefined || conflictReactivity === undefined) {
     return (
-      <div className="bg-[#1A1D29] border border-[#4E5564] rounded-xl p-6 text-center">
+      <div className="bg-[#1A1D29]/40 backdrop-blur-md border border-[#4E5564] rounded-xl p-6 text-center">
         <p className="text-cyan-400 text-sm">Awaiting analysis data...</p>
       </div>
     );
   }
 
   return (
-    <div className="bg-[#1A1D29] border border-[#4E5564] rounded-xl p-6 relative overflow-hidden">
+    <div className="bg-[#1A1D29]/40 backdrop-blur-md border border-[#4E5564] rounded-xl p-6 relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-radial from-cyan-500/5 to-transparent pointer-events-none" />
       
       <div className="flex flex-col xl:flex-row items-center justify-between gap-2 mb-4">

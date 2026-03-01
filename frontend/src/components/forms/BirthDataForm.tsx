@@ -38,7 +38,7 @@ export const BirthDataForm = ({ data, onChange, label, errors = {} }: BirthDataF
   const errorTextClass = "text-red-400 text-xs mt-1";
 
   return (
-    <div className="space-y-4 p-6 bg-[#1A1D29]/40 backdrop-blur-md border border-[#4E5564]/30 rounded-xl">
+    <div className="space-y-4 p-6 bg-[#1A1D29]/40 backdrop-blur-md/40 backdrop-blur-md border border-[#4E5564]/30 rounded-xl">
       {label && <h3 className="text-lg font-semibold text-[#B5A593] mb-4">{label}</h3>}
       
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">

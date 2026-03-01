@@ -79,7 +79,7 @@ export const Mode1Results = ({ loveProfile, personalityVector, diagnostics = [],
 
       {/* LLM Narrative Section */}
       {narrative && (
-        <div className="bg-[#1A1D29] border border-[#4E5564] rounded-xl p-6">
+        <div className="bg-[#1A1D29]/40 backdrop-blur-md border border-[#4E5564] rounded-xl p-6">
           {narrative.headline && (
             <h2 className="text-2xl font-bold text-[#E07A5F] mb-4">{narrative.headline}</h2>
           )}
@@ -110,7 +110,7 @@ export const Mode1Results = ({ loveProfile, personalityVector, diagnostics = [],
       )}
 
       {/* Love Profile Metrics */}
-      <div className="bg-[#1A1D29] border border-[#4E5564] rounded-xl p-6">
+      <div className="bg-[#1A1D29]/40 backdrop-blur-md border border-[#4E5564] rounded-xl p-6">
         <h3 className="text-lg font-semibold text-[#B5A593] mb-4">LOVE PROFILE</h3>
         <div className="grid grid-cols-2 xl:grid-cols-4 gap-4">
           {Object.entries(loveProfile).map(([key, value]) => {
@@ -175,7 +175,7 @@ export const Mode1Results = ({ loveProfile, personalityVector, diagnostics = [],
       </div>
 
       {/* Element Distribution */}
-      <div className="bg-[#1A1D29] border border-[#4E5564] rounded-xl p-6">
+      <div className="bg-[#1A1D29]/40 backdrop-blur-md border border-[#4E5564] rounded-xl p-6">
         <h3 className="text-lg font-semibold text-[#B5A593] mb-4">ELEMENTAL PROFILE</h3>
         <p className="text-base text-gray-400 mb-4 leading-relaxed">องค์ประกอบธาตุทั้ง 4 ที่สะท้อนบุคลิกภาพและพลังงานภายในของคุณ</p>
         <div className="space-y-3">
@@ -213,7 +213,7 @@ export const Mode1Results = ({ loveProfile, personalityVector, diagnostics = [],
 
       {/* Personality Insights */}
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-4">
-        <div className="bg-[#1A1D29] border border-[#4E5564] rounded-xl p-4">
+        <div className="bg-[#1A1D29]/40 backdrop-blur-md border border-[#4E5564] rounded-xl p-4">
           <div className="text-sm text-gray-400 mb-1">VENUS-MARS HARMONY</div>
           <div className="text-base text-[#B5A593] mb-2">ความกลมกลืนระหว่างดาวศุกร์-ดาวอังคาร</div>
           <div className="text-2xl font-bold text-[#B5A593] mb-2">
@@ -223,7 +223,7 @@ export const Mode1Results = ({ loveProfile, personalityVector, diagnostics = [],
             ความสมดุลระหว่างความรักกับความปรารถนา แสดงถึงเคมีทางรักและความเข้ากันได้ทางกาย
           </div>
         </div>
-        <div className="bg-[#1A1D29] border border-[#4E5564] rounded-xl p-4">
+        <div className="bg-[#1A1D29]/40 backdrop-blur-md border border-[#4E5564] rounded-xl p-4">
           <div className="text-sm text-gray-400 mb-1">SUN-MOON BALANCE</div>
           <div className="text-base text-[#E07A5F] mb-2">ความสมดุลระหว่างดวงอาทิตย์-ดวงจันทร์</div>
           <div className="text-2xl font-bold text-[#E07A5F] mb-2">
@@ -233,7 +233,7 @@ export const Mode1Results = ({ loveProfile, personalityVector, diagnostics = [],
             ความกลมกลืนระหว่างตัวตนภายนอกกับอารมณ์ภายใน สะท้อนความสมบูรณ์ของบุคลิกภาพ
           </div>
         </div>
-        <div className="bg-[#1A1D29] border border-[#4E5564] rounded-xl p-4">
+        <div className="bg-[#1A1D29]/40 backdrop-blur-md border border-[#4E5564] rounded-xl p-4">
           <div className="text-sm text-gray-400 mb-1">EMOTIONAL STABILITY</div>
           <div className="text-base text-[#B5A593] mb-2">ความมั่นคงทางอารมณ์</div>
           <div className="text-2xl font-bold text-[#B5A593] mb-2">
@@ -247,7 +247,7 @@ export const Mode1Results = ({ loveProfile, personalityVector, diagnostics = [],
 
       {/* Diagnostics */}
       {diagnostics.length > 0 && (
-        <div className="bg-[#1A1D29] border border-[#4E5564] rounded-xl p-6">
+        <div className="bg-[#1A1D29]/40 backdrop-blur-md border border-[#4E5564] rounded-xl p-6">
           <h3 className="text-lg font-semibold text-[#B5A593] mb-4">DIAGNOSTIC INSIGHTS</h3>
           <div className="space-y-3">
             {diagnostics.map((diag, idx) => (
@@ -267,7 +267,7 @@ export const Mode1Results = ({ loveProfile, personalityVector, diagnostics = [],
 
       {/* Aspect Engine Data */}
       {aspects && aspects.length > 0 && (
-        <div className="bg-[#1A1D29] border border-[#4E5564] rounded-xl p-6">
+        <div className="bg-[#1A1D29]/40 backdrop-blur-md border border-[#4E5564] rounded-xl p-6">
           <h3 className="text-lg font-semibold text-[#B5A593] mb-4">ASPECT ENGINE DATA</h3>
           
           {/* Aspect Summary */}

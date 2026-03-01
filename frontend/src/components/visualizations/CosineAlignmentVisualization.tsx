@@ -83,7 +83,7 @@ export const CosineAlignmentVisualization = ({ matches }: CosineAlignmentVisuali
 
   if (!matches || matches.length === 0) {
     return (
-      <div className="bg-[#1A1D29] border border-[#4E5564] rounded-xl p-6 text-center">
+      <div className="bg-[#1A1D29]/40 backdrop-blur-md border border-[#4E5564] rounded-xl p-6 text-center">
         <p className="text-cyan-400 text-sm">Waiting for top match compatibility result...</p>
       </div>
     );
@@ -95,7 +95,7 @@ export const CosineAlignmentVisualization = ({ matches }: CosineAlignmentVisuali
   const celebVectorY = -vectorLength * Math.sin(currentAngle * Math.PI / 180);
 
   return (
-    <div className="bg-[#1A1D29] border border-[#4E5564] rounded-xl p-6 relative overflow-hidden">
+    <div className="bg-[#1A1D29]/40 backdrop-blur-md border border-[#4E5564] rounded-xl p-6 relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-radial from-purple-500/5 to-transparent pointer-events-none" />
       
       <div className="flex items-center justify-between mb-4">
@@ -258,19 +258,19 @@ export const CosineAlignmentVisualization = ({ matches }: CosineAlignmentVisuali
               </div>
 
               {/* Math info */}
-              <div className="bg-[#1A1D29] rounded-lg p-3 mb-4 font-mono text-sm">
+              <div className="bg-[#1A1D29]/40 backdrop-blur-md rounded-lg p-3 mb-4 font-mono text-sm">
                 <p className="text-gray-400">cos(θ) = <span className="text-[#E07A5F] font-bold">{currentMatch.similarityScore.toFixed(3)}</span></p>
                 <p className="text-gray-400">θ = <span className="text-[#B5A593] font-bold">{finalAngle.toFixed(1)}°</span></p>
               </div>
 
               {/* Match reason */}
-              <div className="bg-[#1A1D29] rounded px-3 py-2 border-l-2 border-[#E07A5F] mb-3">
+              <div className="bg-[#1A1D29]/40 backdrop-blur-md rounded px-3 py-2 border-l-2 border-[#E07A5F] mb-3">
                 <p className="text-base text-gray-300 leading-relaxed">{currentMatch.matchReason}</p>
               </div>
               
               {/* Funny Joke */}
               {currentMatch.funnyJoke && (
-                <div className="bg-[#1A1D29] rounded-lg p-3 border-l-2 border-[#f59e0b]">
+                <div className="bg-[#1A1D29]/40 backdrop-blur-md rounded-lg p-3 border-l-2 border-[#f59e0b]">
                   <p className="text-base text-gray-300 italic leading-relaxed">😄 {currentMatch.funnyJoke}</p>
                 </div>
               )}
