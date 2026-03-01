@@ -1,12 +1,7 @@
 import { LoveVector3D } from '../visualizations/LoveVector3D';
 
 interface LoveProfileProps {
-  loveProfile: {
-    romantic_readiness: number;
-    passion_drive: number;
-    emotional_depth: number;
-    commitment_capacity: number;
-  };
+  loveProfile: any; // Accept any shape from backend
   personalityVector: {
     venus_mars_harmony: number;
     sun_moon_balance: number;

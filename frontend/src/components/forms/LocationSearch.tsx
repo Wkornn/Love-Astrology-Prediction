@@ -8,9 +8,11 @@ interface LocationResult {
 
 interface LocationSearchProps {
   onSelect: (lat: number, lon: number, name: string) => void;
+  selectedLocation?: string;
+  onClear?: () => void;
 }
 
-export const LocationSearch = ({ onSelect }: LocationSearchProps) => {
+export const LocationSearch = ({ onSelect, selectedLocation, onClear }: LocationSearchProps) => {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState<LocationResult[]>([]);
   const [loading, setLoading] = useState(false);
@@ -33,17 +35,33 @@ export const LocationSearch = ({ onSelect }: LocationSearchProps) => {
     }
   };
 
+  const handleClear = () => {
+    setQuery('');
+    setResults([]);
+    onClear?.();
+  };
+
   return (
     <div className="space-y-2">
       <div className="flex gap-2">
-        <input
-          type="text"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          onKeyPress={(e) => e.key === 'Enter' && searchLocation()}
-          placeholder="Search: Bangkok, New York, Tokyo..."
-          className="flex-1 bg-[#1a1a24] border border-[#2a2a3a] rounded-lg px-4 py-2 text-white"
-        />
+        <div className="flex-1 relative">
+          <input
+            type="text"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            onKeyPress={(e) => e.key === 'Enter' && searchLocation()}
+            placeholder={selectedLocation || "Search: Bangkok, New York, Tokyo..."}
+            className="w-full bg-[#1a1a24] border border-[#2a2a3a] rounded-lg px-4 py-2 pr-10 text-white placeholder-gray-500"
+          />
+          {(query || selectedLocation) && (
+            <button
+              onClick={handleClear}
+              className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white"
+            >
+              ✕
+            </button>
+          )}
+        </div>
         <button
           onClick={searchLocation}
           disabled={loading}

@@ -18,6 +18,7 @@ interface BirthDataFormProps {
 
 export const BirthDataForm = ({ data, onChange, label, errors = {} }: BirthDataFormProps) => {
   const [unknownTime, setUnknownTime] = useState(false);
+  const [selectedLocation, setSelectedLocation] = useState<string>('');
 
   const handleChange = (field: keyof BirthData) => (e: ChangeEvent<HTMLInputElement>) => {
     onChange({ ...data, [field]: e.target.value });
@@ -77,12 +78,18 @@ export const BirthDataForm = ({ data, onChange, label, errors = {} }: BirthDataF
       <div>
         <label className={labelClass}>Birth Location</label>
         <LocationSearch
-          onSelect={(lat, lon) => {
+          onSelect={(lat, lon, name) => {
+            setSelectedLocation(name);
             onChange({ 
               ...data, 
               latitude: lat.toString(), 
               longitude: lon.toString() 
             });
+          }}
+          selectedLocation={selectedLocation}
+          onClear={() => {
+            setSelectedLocation('');
+            onChange({ ...data, latitude: '', longitude: '' });
           }}
         />
       </div>
